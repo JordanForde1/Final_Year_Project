@@ -1,0 +1,65 @@
+<!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+<h1>{{ object.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' question_id=object.id %}" method="post">
+
+{% csrf_token %}
+<strong>Vote:</strong><br />
+{% for choice in object.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Gender:</strong><br />
+{% for gender in object.gender_set.all %}
+    <input type="radio" name="gender" id="gender{{ forloop.counter }}" value="{{ gender.id }}" />
+    <label for="gender{{ forloop.counter }}">{{ gender.gender_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Age:</strong><br />
+{% for age in object.age_set.all %}
+    <input type="radio" name="age" id="age{{ forloop.counter }}" value="{{ age.id }}" />
+    <label for="age{{ forloop.counter }}">{{ age.age_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Education:</strong><br />
+{% for education in object.education_set.all %}
+    <input type="radio" name="education" id="education{{ forloop.counter }}" value="{{ education.id }}" />
+    <label for="education{{ forloop.counter }}">{{ education.education_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Religion:</strong><br />
+{% for religion in object.religion_set.all %}
+    <input type="radio" name="religion" id="religion{{ forloop.counter }}" value="{{ religion.id }}" />
+    <label for="religion{{ forloop.counter }}">{{ religion.religion_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Ethnicity:</strong><br />
+{% for ethnicity in object.ethnicity_set.all %}
+    <input type="radio" name="ethnicity" id="ethnicity{{ forloop.counter }}" value="{{ ethnicity.id }}" />
+    <label for="ethnicity{{ forloop.counter }}">{{ ethnicity.ethnicity_text }}</label><br />
+{% endfor %}
+<br />
+
+{% csrf_token %}
+<strong>Income:</strong><br />
+{% for income in object.income_set.all %}
+    <input type="radio" name="income" id="income{{ forloop.counter }}" value="{{ income.id }}" />
+    <label for="income{{ forloop.counter }}{{ forloop.counter }}">{{ income.income_text }}</label><br />
+{% endfor %}
+<br />
+
+<input type="submit" value="Submit" />
+</form>

@@ -1,0 +1,74 @@
+<!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+{% load leaflet_tags %}
+<head>
+
+    <!-- Map in center of the screen -->
+    {% leaflet_js %}
+    {% leaflet_css %}
+</head>
+<h1>{{ questions.question_text }}</h1>
+<body>
+
+<ul>
+{% for choice in questions.choice_set.all %}
+    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for gender in questions.gender_set.all %}
+    <li>{{ gender.gender_text }} -- {{ gender.num }} vote{{ gender.num|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for age in questions.age_set.all %}
+    <li>{{ age.age_text }} -- {{ age.option }} vote{{ age.option|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+<!-- Shows the question text and how many votes  -->
+{% for education in questions.education_set.all %}
+    <li>{{ education.education_text }} -- {{ education.number }} vote{{ education.number|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for religion in questions.religion_set.all %}
+    <li>{{ religion.religion_text }} -- {{ religion.pick }} vote{{ religion.pick|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for ethnicity in questions.ethnicity_set.all %}
+    <li>{{ ethnicity.ethnicity_text }} -- {{ ethnicity.racenum }} vote{{ ethnicity.racenum|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+{% for income in questions.income_set.all %}
+    <li>{{ income.income_text }} -- {{ income.amount }} vote{{ income.amount|pluralize }}</li>
+{% endfor %}
+</ul>
+<a href="{% url 'polls:detail' questions.id %}">Vote again?</a>
+<br /><br /><br /><br />
+
+<!-- initialising map-->
+<div id="mapid">
+{% leaflet_map "yourmap" callback="window.map_init_basic" %}
+<style>
+    #mapid{
+      margin: auto;
+      height: 10%;
+      width: 60%;
+      padding: 10px;
+    }
+
+    .leaflet-container {
+    width: 600px;
+    height: 400px;
+    }
+</style>
+</div>
+</body>
