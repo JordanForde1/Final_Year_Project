@@ -78,48 +78,6 @@ class Income (models.Model):
 #what Constituency the voter is in
 class Constituency (models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
-    CONSTITUENCY = (
-        ('Carlow-Kilkenny', 'Carlow-Kilkenny'),
-        ('Cavan-Monaghan', 'Cavan-Monaghan'),
-        ('Clare', 'Clare'),
-        ('Cork East', 'Cork East'),
-        ('Cork North-Central', 'Cork North-Central'),
-        ('Cork North-West', 'Cork North-West'),
-        ('Cork South-Central', 'Cork South-Central'),
-        ('Cork South-West', 'Cork South-West'),
-        ('Donegal', 'Donegal'),
-        ('Dublin Bay North', 'Dublin Bay North'),
-        ('Dublin Bay South', 'Dublin Bay South'),
-        ('Dublin Central', 'Dublin Central'),
-        ('Dublin Fingal', 'Dublin Fingal'),
-        ('Dublin Mid-West', 'Dublin Mid-West'),
-        ('Dublin North-West', 'Dublin North-West'),
-        ('Dublin Rathdown', 'Dublin Rathdown'),
-        ('Dublin South-Central', 'Dublin South-Central'),
-        ('Dublin South-West', 'Dublin South-West'),
-        ('Dublin West', 'Dublin West'),
-        ('Dun Laoghaire', 'Dun Laoghaire'),
-        ('Galway East', 'Galway East'),
-        ('Galway West', 'Galway West'),
-        ('Kerry', 'Kerry'),
-        ('Kildare North', 'Kildare North'),
-        ('Kildare South', 'Kildare South'),
-        ('Loais', 'Loais'),
-        ('Limerick', 'Limerick'),
-        ('Limerick City', 'Limerick City'),
-        ('Longford-Westmeath', 'Longford-Westmeath'),
-        ('Louth', 'Louth'),
-        ('Mayo', 'Mayo'),
-        ('Meath East', 'Meath East'),
-        ('Meath West', 'Meath West'),
-        ('Offaly', 'Offaly'),
-        ('Roscommon-Galway', 'Roscommon-Galway'),
-        ('Sligo-Leitrim', 'Sligo-Leitrim'),
-        ('Tipperary', 'Tipperary'),
-        ('Waterford', 'Waterford'),
-        ('Wexford', 'Wexford'),
-        ('Wicklow', 'Wicklow'),
-    )
-    constituency_text = models.CharField(max_length=250, choices=CONSTITUENCY, default='Carlow-Kilkenny')
+    constituency_text = models.CharField(max_length=250)
     def __str__(self):
             return self.constituency_text

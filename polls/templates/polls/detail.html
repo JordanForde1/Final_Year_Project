@@ -64,7 +64,7 @@
 {% csrf_token %}
 <strong>Constituency:</strong>
 <select>
-{% for Constituency in object.constituency_set.all %}
+{% for constituency in object.constituency_set.all %}
     <option value="{{constituency.id}}">{{constituency.constituency_text}}</option>
 {% endfor %}
 </select>

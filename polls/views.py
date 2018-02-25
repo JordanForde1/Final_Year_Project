@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from polls.forms import MyModelForm
 from .models import Choice, Questions, Constituency
 
 
@@ -18,7 +17,6 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Questions, Constituency
-    #form_class = MyModelForm
     template_name = 'polls/detail.html'
     def get_queryset(self):
         return Questions.objects.filter(pub_date__lte=timezone.now())
