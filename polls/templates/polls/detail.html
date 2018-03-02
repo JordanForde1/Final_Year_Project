@@ -1,6 +1,9 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+<head>
 <h1>{{ object.question_text }}</h1>
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <form action="{% url 'polls:vote' question_id=object.id %}" method="post">
@@ -56,6 +59,7 @@
 {% csrf_token %}
 <strong>Income:</strong><br />
 {% for income in object.income_set.all %}
+    <label for="income{{ forloop.counter }}"></label>
     <input type="radio" name="income" id="income{{ forloop.counter }}" value="{{ income.id }}" />
     <label for="income{{ forloop.counter }}{{ forloop.counter }}">{{ income.income_text }}</label><br />
 {% endfor %}
@@ -63,12 +67,24 @@
 
 {% csrf_token %}
 <strong>Constituency:</strong>
-<select>
-{% for constituency in object.constituency_set.all %}
-    <option value="{{constituency.id}}">{{constituency.constituency_text}}</option>
-{% endfor %}
-</select>
-
+    <label>
+        <select>
+            {% for constituency in object.constituency_set.all %}
+            <option value="{{constituency.id}}">{{constituency.constituency_text}}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <br />
 <br />
-<input type="submit" value="Submit" />
+<div class="g-recaptcha" data-sitekey="6LeQEUoUAAAAAK8gjBkv1JdP5iLQZ9IcQ9s2cNhX" data-callback="enableBtn"></div>
+<br />
+<input type="submit" value="Submit" id="button1">
 </form>
+<script>
+    document.getElementById("button1").disabled = true;
+
+    function enableBtn(){
+       document.getElementById("button1").disabled = false;
+    }
+</script>
+</body>

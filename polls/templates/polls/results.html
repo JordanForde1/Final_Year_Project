@@ -5,6 +5,7 @@
     {% leaflet_js %}
     {% leaflet_css %}
 </head>
+
 <h1>{{ questions.question_text }}</h1>
 <body>
 
@@ -50,6 +51,7 @@
     <li>{{ income.income_text }} -- {{ income.amount }} vote{{ income.amount|pluralize }}</li>
 {% endfor %}
 </ul>
+
 <a href="{% url 'polls:detail' questions.id %}">Vote again?</a>
 <br /><br /><br /><br />
 
@@ -69,5 +71,4 @@
     height: 400px;
     }
 </style>
-</div>
-</body>
+</div></body>

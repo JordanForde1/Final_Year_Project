@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Choice, Questions, Constituency
+from .models import Choice, Questions
 
 
 #Different views
@@ -16,7 +16,7 @@ class IndexView(generic.ListView):
 
 
 class DetailView(generic.DetailView):
-    model = Questions, Constituency
+    model = Questions
     template_name = 'polls/detail.html'
     def get_queryset(self):
         return Questions.objects.filter(pub_date__lte=timezone.now())
@@ -37,6 +37,7 @@ def vote(request, question_id):
         selected_religion= questions.religion_set.get(pk=request.POST['religion'])
         selected_ethnicity = questions.ethnicity_set.get(pk=request.POST['ethnicity'])
         selected_income = questions.income_set.get(pk=request.POST['income'])
+       # selected_constituency = questions.constituency_set.get(pk=request.POST['constituency'])
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
             'question': questions,
@@ -50,6 +51,7 @@ def vote(request, question_id):
         selected_religion.pick += 1
         selected_ethnicity.racenum += 1
         selected_income.amount += 1
+        #selected_constituency += 1
         selected_choice.save()
         selected_gender.save()
         selected_age.save()
@@ -57,4 +59,5 @@ def vote(request, question_id):
         selected_religion.save()
         selected_ethnicity.save()
         selected_income.save()
+        #selected_constituency.save()
         return HttpResponseRedirect(reverse('polls:results', args=(questions.id,)))

@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'leaflet',
+    'captcha',
 ]
+GOOGLE_RECAPTCHA_SITE_KEY = '6LeQEUoUAAAAAK8gjBkv1JdP5iLQZ9IcQ9s2cNhX'
+GOOGLE_RECAPTCHA_SECRET_KEY  = '6LeQEUoUAAAAAKxVHtS0TGZNi38618GTjkHrq4Jb'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,11 +130,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
+
 
 TEMPLATES = [
     {
