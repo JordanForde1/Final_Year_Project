@@ -4,56 +4,92 @@
     <!-- Map in center of the screen -->
     {% leaflet_js %}
     {% leaflet_css %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <h1>{{ questions.question_text }}</h1>
 <body>
 
-<ul>
-{% for choice in questions.choice_set.all %}
-    <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-{% endfor %}
-</ul>
+<div class="container" id="container">
+    <strong> Yes and no votes!</strong>
+        {% for choice in questions.choice_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ choice.votes }}%">{{ choice.choice_text }}</div>
+            </div>
+        {% endfor %}
+</div>
 
-<ul>
-{% for gender in questions.gender_set.all %}
-    <li>{{ gender.gender_text }} -- {{ gender.num }} vote{{ gender.num|pluralize }}</li>
-{% endfor %}
-</ul>
+<br />
 
-<ul>
-{% for age in questions.age_set.all %}
-    <li>{{ age.age_text }} -- {{ age.option }} vote{{ age.option|pluralize }}</li>
-{% endfor %}
-</ul>
+<div class="container" id="container">
+    <strong> Male and Female voters!</strong>
+        {% for gender in questions.gender_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num }}%">{{ gender.gender_text }}</div>
+            </div>
+        {% endfor %}
+</div>
 
-<ul>
-<!-- Shows the question text and how many votes  -->
-{% for education in questions.education_set.all %}
-    <li>{{ education.education_text }} -- {{ education.number }} vote{{ education.number|pluralize }}</li>
-{% endfor %}
-</ul>
+<br />
 
-<ul>
-{% for religion in questions.religion_set.all %}
-    <li>{{ religion.religion_text }} -- {{ religion.pick }} vote{{ religion.pick|pluralize }}</li>
-{% endfor %}
-</ul>
+<div class="container" id="container">
+    <strong> Ages of voters!</strong>
+        {% for age in questions.age_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option }}%">{{ age.age_text }}</div>
+            </div>
+        {% endfor %}
+</div>
 
-<ul>
-{% for ethnicity in questions.ethnicity_set.all %}
-    <li>{{ ethnicity.ethnicity_text }} -- {{ ethnicity.racenum }} vote{{ ethnicity.racenum|pluralize }}</li>
-{% endfor %}
-</ul>
+<br />
 
-<ul>
-{% for income in questions.income_set.all %}
-    <li>{{ income.income_text }} -- {{ income.amount }} vote{{ income.amount|pluralize }}</li>
-{% endfor %}
-</ul>
+<div class="container" id="container">
+    <strong> Education of voters!</strong>
+        {% for education in questions.education_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number }}%">{{ education.education_text }}</div>
+            </div>
+        {% endfor %}
+</div>
 
-<a href="{% url 'polls:detail' questions.id %}">Vote again?</a>
-<br /><br /><br /><br />
+<br />
+
+<div class="container" id="container">
+    <strong> Religion of voters!</strong>
+        {% for religion in questions.religion_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick }}%">{{ religion.religion_text }}</div>
+            </div>
+        {% endfor %}
+</div>
+
+<br />
+
+<div class="container" id="container">
+    <strong> Ethnicity of voters!</strong>
+        {% for ethnicity in questions.ethnicity_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum }}%">{{ ethnicity.ethnicity_text }}</div>
+            </div>
+        {% endfor %}
+</div>
+
+<br />
+
+<div class="container" id="container">
+    <strong> Income of voters!</strong>
+        {% for income in questions.income_set.all %}
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount }}%">{{ income.income_text }}</div>
+            </div>
+        {% endfor %}
+</div>
+
+<br /><br />
 
 <!-- initialising map-->
 <div id="mapid">
@@ -67,8 +103,9 @@
     }
 
     .leaflet-container {
-    width: 600px;
-    height: 400px;
+        width: 600px;
+        height: 400px;
     }
 </style>
-</div></body>
+</div>
+</body>
