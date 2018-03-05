@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'leaflet',
     'captcha',
     'mathfilters',
+    'bootstrap3',
 ]
 GOOGLE_RECAPTCHA_SITE_KEY = '6LeQEUoUAAAAAK8gjBkv1JdP5iLQZ9IcQ9s2cNhX'
 GOOGLE_RECAPTCHA_SECRET_KEY  = '6LeQEUoUAAAAAKxVHtS0TGZNi38618GTjkHrq4Jb'

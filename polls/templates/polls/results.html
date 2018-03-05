@@ -1,6 +1,7 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
 {% load leaflet_tags %}
 {% load mathfilters %}
+{% load bootstrap3 %}
 <head>
     <!-- Map in center of the screen -->
     {% leaflet_js %}
@@ -10,11 +11,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="fusioncharts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 </head>
 
 <h1>{{ questions.question_text }}</h1>
-<body>
+<h3>Progress bars!</h3>
 <div class="container" id="container">
     <strong> Yes and no votes!</strong><br />
         {% for choice in questions.choice_set.all %}
@@ -89,7 +90,61 @@
             </div>
         {% endfor %}
 </div>
+<br /><br />
+<h3>Charts!</h3>
+<strong> Income bar chart!</strong>
+<canvas id="incomeChart" width="100" height="50"></canvas>
+    <script>
+            var dataIncome = [];
+            {% for income in questions.income_set.all %}
+                dataIncome.push({{ income.amount }});
+            {% endfor %}
 
+            var total_data = {{ view.kwargs.totalVotes }};
+            var percent_data = [];
+
+            for (i = 0; i < 6 ; i++){
+                percent_data.push((dataIncome[i] / total_data) * 100);
+            }
+
+            var ctx = document.getElementById("incomeChart").getContext('2d');
+            var incomeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["75,000-100,000", "50,000-75,000", "Social Welfare", "30,000-50,000", "100,00+", "0-30,000"],
+                    datasets: [{
+                        label: 'Percentage  of Votes',
+                        data: percent_data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+    </script>
 <br /><br />
 
 <!-- initialising map-->
