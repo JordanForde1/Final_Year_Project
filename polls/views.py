@@ -1,6 +1,8 @@
 # Reference:https://docs.djangoproject.com/en/1.11/intro/
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, render_to_response
+from django.template import Context
+from django.template.loader import get_template, render_to_string
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -25,7 +27,6 @@ class DetailView(generic.DetailView):
 class ResultsView(generic.DetailView):
     model = Questions
     template_name = 'polls/results.html'
-
 
 def vote(request, question_id):
     questions = get_object_or_404(Questions, pk=question_id)
@@ -60,4 +61,11 @@ def vote(request, question_id):
         selected_ethnicity.save()
         selected_income.save()
         #selected_constituency.save()
-        return HttpResponseRedirect(reverse('polls:results', args=(questions.id,)))
+
+        choices = questions.choice_set.all()
+        totalVotes = 0
+
+        for choice in choices:
+            totalVotes = totalVotes + choice.votes
+
+        return HttpResponseRedirect(reverse('polls:results', args=(questions.id, totalVotes)))

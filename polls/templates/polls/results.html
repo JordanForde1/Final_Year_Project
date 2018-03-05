@@ -1,5 +1,6 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
 {% load leaflet_tags %}
+{% load mathfilters %}
 <head>
     <!-- Map in center of the screen -->
     {% leaflet_js %}
@@ -9,16 +10,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="fusioncharts.js"></script>
 </head>
 
 <h1>{{ questions.question_text }}</h1>
 <body>
-
 <div class="container" id="container">
-    <strong> Yes and no votes!</strong>
+    <strong> Yes and no votes!</strong><br />
         {% for choice in questions.choice_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ choice.votes }}%">{{ choice.choice_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -29,7 +30,7 @@
     <strong> Male and Female voters!</strong>
         {% for gender in questions.gender_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num }}%">{{ gender.gender_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -40,7 +41,7 @@
     <strong> Ages of voters!</strong>
         {% for age in questions.age_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option }}%">{{ age.age_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -51,7 +52,7 @@
     <strong> Education of voters!</strong>
         {% for education in questions.education_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number }}%">{{ education.education_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -62,7 +63,7 @@
     <strong> Religion of voters!</strong>
         {% for religion in questions.religion_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick }}%">{{ religion.religion_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -73,7 +74,7 @@
     <strong> Ethnicity of voters!</strong>
         {% for ethnicity in questions.ethnicity_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum }}%">{{ ethnicity.ethnicity_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}</div>
             </div>
         {% endfor %}
 </div>
@@ -84,7 +85,7 @@
     <strong> Income of voters!</strong>
         {% for income in questions.income_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount }}%">{{ income.income_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}</div>
             </div>
         {% endfor %}
 </div>
