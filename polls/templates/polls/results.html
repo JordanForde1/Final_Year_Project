@@ -92,29 +92,243 @@
 </div>
 <br /><br />
 <h3>Charts!</h3>
-<strong> Income bar chart!</strong>
-<canvas id="incomeChart" width="100" height="50"></canvas>
-    <script>
-            var dataIncome = [];
-            {% for income in questions.income_set.all %}
-                dataIncome.push({{ income.amount }});
-            {% endfor %}
+<div class="container">
+    <div class="row">
+            <strong> Yes or no vote pie chart!</strong>
+            <canvas id="choiceChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
 
-            var total_data = {{ view.kwargs.totalVotes }};
-            var percent_data = [];
+<div class="container">
+    <div class="row">
+        <strong> Male and Female pie chart!</strong>
+        <canvas id="genderChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
 
-            for (i = 0; i < 6 ; i++){
-                percent_data.push((dataIncome[i] / total_data) * 100);
+<div class="container">
+    <div class="row">
+        <strong> Age bar chart!</strong>
+        <canvas id="ageChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+        <strong> Education bar chart!</strong>
+        <canvas id="educationChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+        <strong> Religion bar chart!</strong>
+        <canvas id="religionChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+        <strong> Ethnicity bar chart!</strong>
+        <canvas id="ethnicityChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
+
+<div class="container">
+    <div class="row">
+        <strong> Income bar chart!</strong>
+        <canvas id="incomeChart" width="100" height="50"></canvas>
+    </div>
+</div>
+<br />
+
+<script>
+        var dataVote = [];
+        {% for choice in questions.choice_set.all %}
+            dataVote.push({{ choice.votes }});
+        {% endfor %}
+
+        var dataGender = [];
+        {% for gender in questions.gender_set.all %}
+            dataGender.push({{ gender.num }});
+        {% endfor %}
+
+        var dataAge = [];
+        {% for age in questions.age_set.all %}
+            dataAge.push({{ age.option }});
+        {% endfor %}
+
+        var dataEducation = [];
+        {% for education in questions.education_set.all %}
+            dataEducation.push({{ education.number }});
+        {% endfor %}
+
+        var dataReligion = [];
+        {% for religion in questions.religion_set.all %}
+            dataReligion.push({{ religion.pick }});
+        {% endfor %}
+
+        var dataEthnicity = [];
+        {% for ethnicity in questions.ethnicity_set.all %}
+            dataEthnicity.push({{ ethnicity.racenum }});
+        {% endfor %}
+
+        var dataIncome = [];
+        {% for income in questions.income_set.all %}
+            dataIncome.push({{ income.amount }});
+        {% endfor %}
+
+
+        var percent_vote = [];
+        var percent_gender = [];
+        var percent_age = [];
+        var percent_education = [];
+        var percent_religion = [];
+        var percent_ethnicity = [];
+        var percent_income = [];
+        var total_data = {{ view.kwargs.totalVotes }};
+
+        for (i = 0; i < 2 ; i++){
+            percent_gender.push((dataGender[i] / total_data) * 100);
+        }
+
+        for (i = 0; i < 2 ; i++){
+            percent_vote.push((dataVote[i] / total_data) * 100);
+        }
+
+        for (i = 0; i < 6 ; i++){
+            percent_age.push((dataAge[i] / total_data) * 100);
+        }
+
+        for (i = 0; i < 6 ; i++){
+             percent_education.push((dataEducation[i] / total_data) * 100);
+        }
+
+
+        for (i = 0; i < 6 ; i++){
+            percent_religion.push((dataReligion[i] / total_data) * 100);
+        }
+
+        for (i = 0; i < 5 ; i++){
+            percent_ethnicity.push((dataEthnicity[i] / total_data) * 100);
+        }
+
+        for (i = 0; i < 6 ; i++){
+            percent_income.push((dataIncome[i] / total_data) * 100);
+        }
+
+        var cc = document.getElementById("choiceChart").getContext('2d');
+        var choiceChart = new Chart(cc, {
+            type: 'pie',
+            data: {
+                labels: ["I am for", "I am against"],
+                datasets: [{
+                    label: 'Percentage of Votes',
+                    data: percent_vote,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
             }
+        });
 
-            var ctx = document.getElementById("incomeChart").getContext('2d');
-            var incomeChart = new Chart(ctx, {
+         var gc = document.getElementById("genderChart").getContext('2d');
+         var genderChart = new Chart(gc, {
+            type: 'pie',
+            data: {
+                labels: ["Male", "Female"],
+                datasets: [{
+                    label: 'Percentage of Votes',
+                    data: percent_gender,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ac = document.getElementById("ageChart").getContext('2d');
+        var ageChart = new Chart(ac, {
+            type: 'bar',
+            data: {
+                labels: ["35-44", "18-24", "65 or older", "25-34", "55-64", "45-54"],
+                datasets: [{
+                    label: 'Percentage of Votes',
+                    data: percent_age,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+        var ec = document.getElementById("educationChart").getContext('2d');
+            var educationChart = new Chart(ec, {
                 type: 'bar',
                 data: {
-                    labels: ["75,000-100,000", "50,000-75,000", "Social Welfare", "30,000-50,000", "100,00+", "0-30,000"],
+                    labels: ["Post Leaving Certificate", "Junior Certificate", "Bachelors Degree", "Masters Degree", "Doctorate Degree", "Leaving Certificate"],
                     datasets: [{
-                        label: 'Percentage  of Votes',
-                        data: percent_data,
+                        label: 'Percentage of Votes',
+                        data: percent_education,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -144,9 +358,122 @@
                     }
                 }
             });
-    </script>
+
+            var rc = document.getElementById("religionChart").getContext('2d');
+            var religionChart = new Chart(rc, {
+                type: 'bar',
+                data: {
+                    labels: ["Christianity", "Islam", "No Religion", "Hinduism", "Judaism", "Buddhism"],
+                    datasets: [{
+                        label: 'Percentage of Votes',
+                        data: percent_religion,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var etc = document.getElementById("ethnicityChart").getContext('2d');
+            var ethnicityChart = new Chart(etc, {
+                type: 'bar',
+                data: {
+                    labels: ["White", "Black", "Other", "Asian", "Hispanic"],
+                    datasets: [{
+                        label: 'Percentage of Votes',
+                        data: percent_ethnicity,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            var ic = document.getElementById("incomeChart").getContext('2d');
+            var incomeChart = new Chart(ic, {
+                type: 'bar',
+                data: {
+                    labels: ["75,000-100,000", "50,000-75,000", "Social Welfare", "30,000-50,000", "100,00+", "0-30,000"],
+                    datasets: [{
+                        label: 'Percentage  of Votes',
+                        data: percent_income,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    }
+                }
+            });
+</script>
 <br /><br />
 
+<h3>Map!</h3>
 <!-- initialising map-->
 <div id="mapid">
 {% leaflet_map "yourmap" callback="window.map_init_basic" %}
