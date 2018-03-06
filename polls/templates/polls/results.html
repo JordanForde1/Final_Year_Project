@@ -20,7 +20,7 @@
     <strong> Yes and no votes!</strong><br />
         {% for choice in questions.choice_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -31,7 +31,7 @@
     <strong> Male and Female voters!</strong>
         {% for gender in questions.gender_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -42,7 +42,7 @@
     <strong> Ages of voters!</strong>
         {% for age in questions.age_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -53,7 +53,7 @@
     <strong> Education of voters!</strong>
         {% for education in questions.education_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -64,7 +64,7 @@
     <strong> Religion of voters!</strong>
         {% for religion in questions.religion_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -75,7 +75,7 @@
     <strong> Ethnicity of voters!</strong>
         {% for ethnicity in questions.ethnicity_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -86,7 +86,7 @@
     <strong> Income of voters!</strong>
         {% for income in questions.income_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}</div>
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>
@@ -212,7 +212,7 @@
 
 
         for (i = 0; i < 6 ; i++){
-            percent_religion.push((dataReligion[i] / total_data) * 100);
+            percent_religion.push((dataReligion[i] / total_data) * 100).toFixed(1);
         }
 
         for (i = 0; i < 5 ; i++){
@@ -225,7 +225,7 @@
 
         var cc = document.getElementById("choiceChart").getContext('2d');
         var choiceChart = new Chart(cc, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ["I am for", "I am against"],
                 datasets: [{
@@ -255,7 +255,7 @@
 
          var gc = document.getElementById("genderChart").getContext('2d');
          var genderChart = new Chart(gc, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ["Male", "Female"],
                 datasets: [{
@@ -325,7 +325,7 @@
             var educationChart = new Chart(ec, {
                 type: 'bar',
                 data: {
-                    labels: ["Post Leaving Certificate", "Junior Certificate", "Bachelors Degree", "Masters Degree", "Doctorate Degree", "Leaving Certificate"],
+                    labels: ["PLC", "Junior Cert", "BA", "MA", "Doctorate", "Leaving Cert"],
                     datasets: [{
                         label: 'Percentage of Votes',
                         data: percent_education,
@@ -437,7 +437,7 @@
             var incomeChart = new Chart(ic, {
                 type: 'bar',
                 data: {
-                    labels: ["75,000-100,000", "50,000-75,000", "Social Welfare", "30,000-50,000", "100,00+", "0-30,000"],
+                    labels: ["75k-100k", "50k-75k", "Social Welfare", "30k-50k", "100k+", "0-30k"],
                     datasets: [{
                         label: 'Percentage  of Votes',
                         data: percent_income,

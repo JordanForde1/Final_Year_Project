@@ -6,7 +6,7 @@
 <body>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'polls:vote' question_id=object.id %}" method="post">
+<form action="{% url 'polls:vote' question_id=object.id %}" method="post" name="frm" onsubmit="validateForm()">
 
 {% csrf_token %}
 <strong>Vote:</strong><br />
@@ -87,4 +87,58 @@
        document.getElementById("button1").disabled = false;
     }
 </script>-->
+
+<script>
+    function validateForm() {
+        var x = document.forms["frm"]["choice"].value;
+        var y = document.forms["frm"]["gender"].value;
+        var z = document.forms["frm"]["age"].value;
+        var t = document.forms["frm"]["education"].value;
+        var k = document.forms["frm"]["religion"].value;
+        var w = document.forms["frm"]["ethnicity"].value;
+        var i = document.forms["frm"]["income"].value;
+
+        if (x === "") {
+            alert("Vote must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (y === "") {
+            alert("Gender must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (z === "") {
+            alert("Age must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (t === "") {
+            alert("Education must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (k === "") {
+            alert("Religion must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (w === "") {
+            alert("Ethnicity must be entered");
+            event.preventDefault();
+            return false;
+        }
+
+        if (i === "") {
+            alert("Income must be entered");
+            event.preventDefault();
+            return false;
+        }
+    }
+</script>
 </body>

@@ -45,27 +45,27 @@ def vote(request, question_id):
             'error_message': "You didn't select anything.",
         })
     else:
-        selected_choice.votes += 1
-        selected_gender.num += 1
-        selected_age.option += 1
-        selected_education.number += 1
-        selected_religion.pick += 1
-        selected_ethnicity.racenum += 1
-        selected_income.amount += 1
-        #selected_constituency += 1
-        selected_choice.save()
-        selected_gender.save()
-        selected_age.save()
-        selected_education.save()
-        selected_religion.save()
-        selected_ethnicity.save()
-        selected_income.save()
-        #selected_constituency.save()
+            selected_choice.votes += 1
+            selected_gender.num += 1
+            selected_age.option += 1
+            selected_education.number += 1
+            selected_religion.pick += 1
+            selected_ethnicity.racenum += 1
+            selected_income.amount += 1
+            #selected_constituency += 1
+            selected_choice.save()
+            selected_gender.save()
+            selected_age.save()
+            selected_education.save()
+            selected_religion.save()
+            selected_ethnicity.save()
+            selected_income.save()
+            #selected_constituency.save()
 
-        choices = questions.choice_set.all()
-        totalVotes = 0
+            choices = questions.choice_set.all()
+            totalVotes = 0
 
-        for choice in choices:
-            totalVotes = totalVotes + choice.votes
+            for choice in choices:
+                totalVotes = totalVotes + choice.votes
 
-        return HttpResponseRedirect(reverse('polls:results', args=(questions.id, totalVotes)))
+            return HttpResponseRedirect(reverse('polls:results', args=(questions.id, totalVotes)))
