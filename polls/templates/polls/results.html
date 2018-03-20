@@ -20,7 +20,7 @@
 <h3>Progress bars!</h3>
 <div class="container" id="container">
     <strong> Yes and no votes!</strong><br />
-        {% for choice in questions.choice_set.all %}
+        {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -31,7 +31,7 @@
 
 <div class="container" id="container">
     <strong> Male and Female voters!</strong>
-        {% for gender in questions.gender_set.all %}
+        {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -42,7 +42,7 @@
 
 <div class="container" id="container">
     <strong> Ages of voters!</strong>
-        {% for age in questions.age_set.all %}
+        {% for age in questions.age_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -53,7 +53,7 @@
 
 <div class="container" id="container">
     <strong> Education of voters!</strong>
-        {% for education in questions.education_set.all %}
+        {% for education in questions.education_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -64,7 +64,7 @@
 
 <div class="container" id="container">
     <strong> Religion of voters!</strong>
-        {% for religion in questions.religion_set.all %}
+        {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -75,7 +75,7 @@
 
 <div class="container" id="container">
     <strong> Ethnicity of voters!</strong>
-        {% for ethnicity in questions.ethnicity_set.all %}
+        {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -86,7 +86,7 @@
 
 <div class="container" id="container">
     <strong> Income of voters!</strong>
-        {% for income in questions.income_set.all %}
+        {% for income in questions.income_set.all|dictsortreversed:"id" %}
             <div class="progress">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
@@ -149,43 +149,43 @@
     </div>
 </div>
 <br />
+<br />
 
 <script>
         var dataVote = [];
-        {% for choice in questions.choice_set.all %}
+        {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
             dataVote.push({{ choice.votes }});
         {% endfor %}
 
         var dataGender = [];
-        {% for gender in questions.gender_set.all %}
+        {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
             dataGender.push({{ gender.num }});
         {% endfor %}
 
         var dataAge = [];
-        {% for age in questions.age_set.all %}
+        {% for age in questions.age_set.all|dictsortreversed:"id" %}
             dataAge.push({{ age.option }});
         {% endfor %}
 
         var dataEducation = [];
-        {% for education in questions.education_set.all %}
+        {% for education in questions.education_set.all|dictsortreversed:"id" %}
             dataEducation.push({{ education.number }});
         {% endfor %}
 
         var dataReligion = [];
-        {% for religion in questions.religion_set.all %}
+        {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
             dataReligion.push({{ religion.pick }});
         {% endfor %}
 
         var dataEthnicity = [];
-        {% for ethnicity in questions.ethnicity_set.all %}
+        {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
             dataEthnicity.push({{ ethnicity.racenum }});
         {% endfor %}
 
         var dataIncome = [];
-        {% for income in questions.income_set.all %}
+        {% for income in questions.income_set.all|dictsortreversed:"id" %}
             dataIncome.push({{ income.amount }});
         {% endfor %}
-
 
         var percent_vote = [];
         var percent_gender = [];
@@ -211,7 +211,6 @@
         for (i = 0; i < 6 ; i++){
              percent_education.push((dataEducation[i] / total_data) * 100);
         }
-
 
         for (i = 0; i < 6 ; i++){
             percent_religion.push((dataReligion[i] / total_data) * 100).toFixed(1);
@@ -289,7 +288,7 @@
         var ageChart = new Chart(ac, {
             type: 'bar',
             data: {
-                labels: ["35-44", "18-24", "65 or older", "25-34", "55-64", "45-54"],
+                labels: ["18-24", "25-34", "35-44", "45-54", "55-64", "65 or older"],
                 datasets: [{
                     label: 'Percentage of Votes',
                     data: percent_age,
@@ -327,7 +326,7 @@
             var educationChart = new Chart(ec, {
                 type: 'bar',
                 data: {
-                    labels: ["PLC", "Junior Cert", "BA", "MA", "Doctorate", "Leaving Cert"],
+                    labels: ["Junior Cert", "Leaving Cert", "PLC", "BA", "MA", "Doctorate"],
                     datasets: [{
                         label: 'Percentage of Votes',
                         data: percent_education,
@@ -365,7 +364,7 @@
             var religionChart = new Chart(rc, {
                 type: 'bar',
                 data: {
-                    labels: ["Christianity", "Islam", "No Religion", "Hinduism", "Judaism", "Buddhism"],
+                    labels: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism","No Religion"],
                     datasets: [{
                         label: 'Percentage of Votes',
                         data: percent_religion,
@@ -403,7 +402,7 @@
             var ethnicityChart = new Chart(etc, {
                 type: 'bar',
                 data: {
-                    labels: ["White", "Black", "Other", "Asian", "Hispanic"],
+                    labels: ["White", "Black", "Asian", "Hispanic", "Other"],
                     datasets: [{
                         label: 'Percentage of Votes',
                         data: percent_ethnicity,
@@ -439,7 +438,7 @@
             var incomeChart = new Chart(ic, {
                 type: 'bar',
                 data: {
-                    labels: ["75k-100k", "50k-75k", "Social Welfare", "30k-50k", "100k+", "0-30k"],
+                    labels: ["Social Welfare", "0-30k", "30k-50k","50k-75k", "75k-100k", "100k+"],
                     datasets: [{
                         label: 'Percentage  of Votes',
                         data: percent_income,
@@ -484,12 +483,12 @@
       margin: auto;
       height: 10%;
       width: 60%;
-      padding: 10px;
+      padding: 130px;
     }
 
     .leaflet-container {
-        width: 600px;
-        height: 400px;
+        width: 900px;
+        height: 600px;
     }
 </style>
 </div>
