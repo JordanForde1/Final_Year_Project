@@ -67,10 +67,10 @@
 
 {% csrf_token %}
 <strong>Constituency:</strong>
-    <label>
-        <select>
+   <label for="constituency{{ forloop.counter }}">
+        <select id="constituency" name="constituency">
             {% for constituency in object.constituency_set.all %}
-            <option value="{{constituency.id}}">{{constituency.constituency_text}}</option>
+            <option name="constituency" id="constituency{{ forloop.counter }}" value="{{constituency.id}}">{{constituency.constituency_text}}</option>
             {% endfor %}
         </select>
     </label>
@@ -97,6 +97,7 @@
         var k = document.forms["frm"]["religion"].value;
         var w = document.forms["frm"]["ethnicity"].value;
         var i = document.forms["frm"]["income"].value;
+        //var c = document.forms["frm"]["constituency"].value;
 
         if (x === "") {
             alert("Vote must be entered");
@@ -139,6 +140,12 @@
             event.preventDefault();
             return false;
         }
+
+        /*if (c === "") {
+            alert("constituency must be entered");
+            event.preventDefault();
+            return false;
+        }*/
     }
 </script>
 </body>

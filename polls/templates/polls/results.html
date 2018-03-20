@@ -12,15 +12,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 </head>
 
 <h1>{{ questions.question_text }}</h1>
+<body>
 <h3>Progress bars!</h3>
 <div class="container" id="container">
     <strong> Yes and no votes!</strong><br />
         {% for choice in questions.choice_set.all %}
             <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
+                <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
             </div>
         {% endfor %}
 </div>

@@ -1,8 +1,6 @@
 # Reference:https://docs.djangoproject.com/en/1.11/intro/
-from django.shortcuts import get_object_or_404, render, render_to_response
-from django.template import Context
-from django.template.loader import get_template, render_to_string
-from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
@@ -38,7 +36,7 @@ def vote(request, question_id):
         selected_religion= questions.religion_set.get(pk=request.POST['religion'])
         selected_ethnicity = questions.ethnicity_set.get(pk=request.POST['ethnicity'])
         selected_income = questions.income_set.get(pk=request.POST['income'])
-       # selected_constituency = questions.constituency_set.get(pk=request.POST['constituency'])
+        selected_constituency = questions.constituency_set.get(pk=request.POST['constituency'])
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
             'question': questions,
@@ -52,7 +50,7 @@ def vote(request, question_id):
             selected_religion.pick += 1
             selected_ethnicity.racenum += 1
             selected_income.amount += 1
-            #selected_constituency += 1
+            selected_constituency.intensity += 1
             selected_choice.save()
             selected_gender.save()
             selected_age.save()
@@ -60,7 +58,7 @@ def vote(request, question_id):
             selected_religion.save()
             selected_ethnicity.save()
             selected_income.save()
-            #selected_constituency.save()
+            selected_constituency.save()
 
             choices = questions.choice_set.all()
             totalVotes = 0
