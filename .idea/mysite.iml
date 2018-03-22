@@ -19,6 +19,12 @@
     <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="Chart" level="application" />
+    <orderEntry type="library" name="heatmap" level="application" />
+    <orderEntry type="library" name="leaflet-heatmap" level="application" />
+    <orderEntry type="library" name="leaflet-heat" level="application" />
+    <orderEntry type="library" name="HeatLayer" level="application" />
+    <orderEntry type="library" name="Heatmap.js" level="application" />
+    <orderEntry type="library" name="heatmap.js-DefinitelyTyped" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

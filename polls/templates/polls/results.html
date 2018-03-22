@@ -12,7 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-
+    <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
+    <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 </head>
 
 <h1>{{ questions.question_text }}</h1>
@@ -488,8 +489,79 @@
 
     .leaflet-container {
         width: 900px;
-        height: 600px;
+        height: 10000px;
     }
 </style>
+<script>
+        var cfg = {
+          "radius": 2,
+          "maxOpacity": .8,
+          "scaleRadius": true,
+          "useLocalExtrema": true,
+          latField: 'lat',
+          lngField: 'lng',
+          valueField: 'count'
+        };
+        var heatmapLayer = new HeatmapOverlay(cfg);
+
+        var map = L.map('mapid');
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        map.addLayer(heatmapLayer);
+
+        var points = [
+         [-7.33535239032412, 52.9898400211206],
+         [-7.13146339548252, 52.6096246434056],
+         [-8.79465665061881, 52.4726324864623],
+         [-8.47952460969623, 52.6407334575277],
+         [-7.59542750524393, 53.5937173474386],
+         [-6.40443677791646, 53.8885362844314],
+         [-9.39853766092637, 53.9471400084625],
+         [-6.60450766391124, 53.6577839315722],
+         [-6.96277441283594, 53.6047290734378],
+         [-7.71820608895521, 53.1617861543383],
+         [-8.28958966330417, 53.6714149906981],
+         [-8.2244903240463, 54.1581415278177],
+         [-7.04348955146049, 54.051557430385],
+         [-7.93221640577651, 52.584703829407],
+         [-7.59710824971242, 52.1734310603601],
+         [-6.57147738763868, 52.4598905336528],
+         [-6.38944881256778, 52.9715892905177],
+         [-6.23820872138959, 53.2552709820359],
+         [-6.28320489357867, 53.3899309617988],
+         [-6.15001594279662, 53.2554809055038],
+         [-6.23870976691181, 53.5154403858311],
+         [-6.38086452406351, 53.3948890380717],
+         [-9.72197227687176, 52.1193187636945],
+         [-6.72776891887779, 53.3270057030943],
+         [-6.85211420831545, 53.1177912528751],
+         [-6.16182254747552, 53.383045166645],
+         [-6.26178831233218, 53.3573362579541],
+         [-6.45903454709705, 53.3050328126896],
+         [-6.32944385856961, 53.3300651298291],
+         [-6.24833540141698, 53.3256226236432],
+         [-6.35685585892419, 53.2558250359047],
+         [-9.04479245707481, 52.8410045833781],
+         [-8.26786531057318, 52.0730703696247],
+         [-8.52939766954459, 51.9993830370912],
+         [-8.422810421735, 51.8338783799749],
+         [-8.9570970818183, 52.0381735432769],
+         [-9.21624044318564, 51.6589304587245],
+         [-7.89535104745885, 54.9398981451611],
+         [-9.45728376643784, 53.4272357153692],
+         [-8.63432405187148, 53.2855983362025]];
+
+        var dataConstituency = [];
+        {% for constituency in questions.constituency_set.all %}
+            dataConstituency.push({{ constituency.intensity }});
+        {% endfor %}
+
+        for (i =0; i < 39; i++){
+            points [i].push(dataConstituency[i]);
+        }
+
+</script>
 </div>
 </body>
