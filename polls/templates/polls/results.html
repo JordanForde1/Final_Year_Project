@@ -489,7 +489,7 @@
 
     .leaflet-container {
         width: 900px;
-        height: 10000px;
+        height: 600px;
     }
 </style>
 <script>
@@ -554,7 +554,7 @@
          [-8.63432405187148, 53.2855983362025]];
 
         var dataConstituency = [];
-        {% for constituency in questions.constituency_set.all %}
+        {% for constituency in questions.constituency_set.all|dictsort:"id" %}
             dataConstituency.push({{ constituency.intensity }});
         {% endfor %}
 
@@ -562,6 +562,9 @@
             points [i].push(dataConstituency[i]);
         }
 
+        console.log(points);
+
+        heatmapLayer.setData(points);
 </script>
 </div>
 </body>
