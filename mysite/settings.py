@@ -152,9 +152,5 @@ TEMPLATES = [
 ]
 
 LEAFLET_CONFIG = {
-    #'SPATIAL_EXTENT': (-15, 52.1424, -2, 55),
-    #'DEFAULT_CENTER': (-7.6921, 53.1424),
-    #'DEFAULT_ZOOM': 6,
-    #'MIN_ZOOM': 6,
-    #'MAX_ZOOM': 12,
+    'SPATIAL_EXTENT': (-15, 52.1424, -2, 55),
 }
