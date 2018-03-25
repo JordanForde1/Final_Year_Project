@@ -475,6 +475,17 @@
 <br /><br />
 
 <h3>Map!</h3>
+<div id="buttons">
+    <label>
+        <input type="radio" name="gender" value="RepealPoll">
+    </label> Repeal the 8th poll<br>
+    <label>
+        <input type="radio" name="gender" value="GayMarriage">
+    </label> Gay marriage Referendum<br>
+    <label>
+        <input type="radio" name="gender" value="both">
+    </label> Overlay both maps
+</div>
 <!-- initialising map-->
 <div id="mapid" >
 <style>
@@ -484,9 +495,14 @@
       width: 900px;
       padding: 130px;
     }
+
+    #buttons{
+        padding: 15px;
+    }
 </style>
 <script>
         var points = [];
+        var marriagePoints = [];
 
         var lat = [
         -7.13146339548252,
@@ -574,6 +590,49 @@
         52.9715892905177
         ];
 
+        var gayMarriageTotalVotes =[
+        53030,
+        51784,
+        41755,
+        39894,
+        43900,
+        83794,
+        52086,
+        30592,
+        29809,
+        35479,
+        42346,
+        45117,
+        39549,
+        36736,
+        58400,
+        39820,
+        39458,
+        42162,
+        36719,
+        57787,
+        27196,
+        46894,
+        59580,
+        34123,
+        34123,
+        26789,
+        29667,
+        46599,
+        41856,
+        42508,
+        54273,
+        24692,
+        24692,
+        24573,
+        29326,
+        39704,
+        67460,
+        41224,
+        49792,
+        50017
+        ];
+
         var dataConstituency = [];
         {% for constituency in questions.constituency_set.all|dictsort:"id" %}
             dataConstituency.push({{ constituency.intensity }});
@@ -589,9 +648,24 @@
             }
         }
 
+        for (i =0; i < 40; i++){
+            if(gayMarriageTotalVotes[i] > 0){
+                marriagePoints.push({
+                "lat": long[i],
+                "lng": lat[i],
+                "count": gayMarriageTotalVotes[i]
+            });
+            }
+        }
+
         var centroids = {
             length: 40,
             data: points
+        };
+
+        var marriageCentroids = {
+            length: 40,
+            data: marriagePoints
         };
 
         var baseLayer = L.tileLayer(
@@ -616,10 +690,24 @@
         };
 
         var heatmapLayer = new HeatmapOverlay(cfg);
+        //var marriageheatmapLayer = new HeatmapOverlay(cfg);
 
         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer, refs, heatmapLayer]});
 
         heatmapLayer.setData(centroids);
+        //marriageheatmapLayer.setData(marriageCentroids);
+
+        /*function check() {
+
+        if(document.getElementById("poll").checked = true){
+            heatmapLayer.setData(centroids).show();
+            marriageheatmapLayer.setData(marriageCentroids).hide();
+        }
+
+        else if (document.getElementById("GayMarriage").checked = true){
+            heatmapLayer.setData(centroids).hide();
+            marriageheatmapLayer.setData(marriageCentroids).show();
+        }*/
 </script>
 </div>
 </body>

@@ -25,6 +25,8 @@
     <orderEntry type="library" name="HeatLayer" level="application" />
     <orderEntry type="library" name="Heatmap.js" level="application" />
     <orderEntry type="library" name="heatmap.js-DefinitelyTyped" level="application" />
+    <orderEntry type="library" name="jquery-1.11.1" level="application" />
+    <orderEntry type="library" name="07b0ce5d10" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
