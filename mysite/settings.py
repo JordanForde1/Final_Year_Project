@@ -150,7 +150,3 @@ TEMPLATES = [
         },
     },
 ]
-
-LEAFLET_CONFIG = {
-    'SPATIAL_EXTENT': (-15, 52.1424, -2, 55),
-}
