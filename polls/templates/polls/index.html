@@ -1,13 +1,70 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="{% static 'polls/style.css' %}" />
+<head>
+    <div class="w3-container w3-center w3-animate-opacity">
+        Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.
+    </div>
+</head>
+<br>
+<body>
+<div class="w3-container w3-center w3-animate-opacity">
+    This web application is a polling system used to gather in formation around the country of Ireland
+    as to allow parties that are taking part in these referendum to see the high and low concerntations
+    of yes and no votes along with a plethora of other information.
+    <br><br>
+    Please click the link be to take part in the upcoming repeal the 8th referendum poll!
+</div>
 {% if latest_question_list %}
-    <ul>
+    <ul class="style" style="list-style-type: none;">
     {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+        <li class="w3-container w3-center w3-animate-opacity"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+</body>
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ul {
+  min-width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transfrom-origin: 50% 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -webkit-transform-origin: 50% 50%;
+  list-style-type: none;
+  background-color: #3a7eb1;
+  border-radius: 20px;
+}
+ul li {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  float: left;
+  line-height: 40px;
+  color: #74b6e8;
+  overflow: hidden;
+  cursor: pointer;
+  position:
+}
+ul li:last-of-type {
+  width: 420px;
+  height: 40px;
+  margin: 0px;
+}
+ul li a {
+  text-decoration: none;
+  color: #f4f4f4;
+}
+</style>
