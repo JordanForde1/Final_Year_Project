@@ -1,11 +1,12 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+<!-- https://simplesharebuttons.com/html-share-buttons/ -->
 {% load static %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 <head>
-    <div class="w3-container w3-center w3-animate-opacity">
-        Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.
-    </div>
+<div class="w3-container w3-center w3-animate-opacity">
+    Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.
+</div>
 </head>
 <br>
 <body>
@@ -14,7 +15,7 @@
     as to allow parties that are taking part in these referendum to see the high and low concerntations
     of yes and no votes along with a plethora of other information.
     <br><br>
-    Please click the link be to take part in the upcoming repeal the 8th referendum poll!
+    Please click the link be to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
 </div>
 {% if latest_question_list %}
     <ul class="style" style="list-style-type: none;">
@@ -25,6 +26,32 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+<div class="w3-container w3-center w3-animate-opacity">
+        <!-- Reddit -->
+        <a href="http://reddit.com/submit?url=http://127.0.0.1:8000/polls/&amp;Repeal the 8th poll!" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
+        </a>
+
+        <!-- Facebook -->
+        <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000/polls/" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+        </a>
+
+        <!-- Google+ -->
+        <a href="https://plus.google.com/share?url=http://127.0.0.1:8000/polls/" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://127.0.0.1:8000/polls/" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+        </a>
+
+        <!-- Twitter -->
+        <a href="https://twitter.com/share?url=http://127.0.0.1:8000/polls/&amp;text=Repeal%20the%208th%20poll&amp;hashtags=votenow" target="_blank">
+            <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+        </a>
+</div>
 </body>
 <style>
 * {
@@ -67,4 +94,5 @@ ul li a {
   text-decoration: none;
   color: #f4f4f4;
 }
+
 </style>

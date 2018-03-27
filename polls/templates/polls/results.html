@@ -477,7 +477,7 @@
 <h3>Map!</h3>
 <form>
         <div id="buttons">
-            <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)">Repeal The 8th Poll<br>
+            <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)" checked>Repeal The 8th Poll<br>
             <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum<br>
             <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Both<br>
         </div>
@@ -690,29 +690,24 @@
         //var marriageheatmapLayer = new HeatmapOverlay(cfg);
 
         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer, refs, heatmapLayer]});
-
-         heatmapLayer.setData(centroids);
-        //marriageheatmapLayer.setData(marriageCentroids);
+        heatmapLayer.setData(centroids);
 
             // Function called when a button is clicked
       		function check(id)
       		{
             	// If it the Repeal button
-            	if(id === "Repeal")
-                {
-                	// If it is selected
-                	if(document.getElementById(id).checked = true)
-                	{
+            	if(id === "Repeal") {
+                    // If it is selected
+                    if (document.getElementById(id).checked = true) {
 
-                	}
+                    }
                 }
 
                 // If it the Gay button
                 else if(id === "Gay")
                 {
                 	// If it is selected
-                	if(document.getElementById(id).checked = true)
-                	{
+                	if(document.getElementById(id).checked = true) {
 
                 	}
                 }
@@ -721,9 +716,8 @@
                 else if(id === "Both")
                 {
                 	// If it is selected
-                	if(document.getElementById(id).checked = true)
-                	{
-                                           
+                	if(document.getElementById(id).checked = true) {
+
                 	}
                 }
       		}
