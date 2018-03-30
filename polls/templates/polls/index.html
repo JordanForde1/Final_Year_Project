@@ -4,61 +4,90 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 <head>
-<div class="w3-container w3-center w3-animate-opacity">
-    Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.
-</div>
+   <div class="container" id="title">
+      <div class="row">
+         <div class="page-header">
+             <div class="w3-container w3-center w3-animate-opacity"></div>
+                <h1>Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.</h1>
+                <hr>
+                <h2>
+                   This web application is a polling system used to gather in formation around the country of Ireland
+                   as to allow parties that are taking part in these referendum to see the high and low concerntations
+                   of yes and no votes along with a plethora of other information.
+                   <hr>
+                   Please click the link be to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
+                </h2>
+            </div>
+         </div>
+      </div>
 </head>
 <br>
 <body>
-<div class="w3-container w3-center w3-animate-opacity">
-    This web application is a polling system used to gather in formation around the country of Ireland
-    as to allow parties that are taking part in these referendum to see the high and low concerntations
-    of yes and no votes along with a plethora of other information.
-    <br><br>
-    Please click the link be to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
-</div>
+
 {% if latest_question_list %}
-    <ul class="style" style="list-style-type: none;">
-    {% for question in latest_question_list %}
-        <li class="w3-container w3-center w3-animate-opacity"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
+  <ul class="style" style="list-style-type: none;">
+ {% for question in latest_question_list %}
+     <li class="w3-container w3-center" id="link"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+ {% endfor %}
+  </ul>
 {% else %}
-    <p>No polls are available.</p>
+  <p>No polls are available.</p>
 {% endif %}
-<div class="w3-container w3-center w3-animate-opacity">
-        <!-- Reddit -->
-        <a href="http://reddit.com/submit?url=http://127.0.0.1:8000/polls/&amp;Repeal the 8th poll!" target="_blank">
-            <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
-        </a>
 
-        <!-- Facebook -->
-        <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000/polls/" target="_blank">
-            <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
-        </a>
-
-        <!-- Google+ -->
-        <a href="https://plus.google.com/share?url=http://127.0.0.1:8000/polls/" target="_blank">
-            <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
-        </a>
-
-        <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://127.0.0.1:8000/polls/" target="_blank">
-            <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
-        </a>
-
-        <!-- Twitter -->
-        <a href="https://twitter.com/share?url=http://127.0.0.1:8000/polls/&amp;text=Repeal%20the%208th%20poll&amp;hashtags=votenow" target="_blank">
-            <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
-        </a>
-</div>
+   <div class="w3-center w3-animate-opacity" id="share">
+      <!-- Reddit -->
+      <a href="http://reddit.com/submit?url=http://127.0.0.1:8000/polls/&amp;Repeal the 8th poll!" target="_blank">
+      <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
+      </a>
+      <!-- Facebook -->
+      <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000/polls/" target="_blank">
+      <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+      </a>
+      <!-- Google+ -->
+      <a href="https://plus.google.com/share?url=http://127.0.0.1:8000/polls/" target="_blank">
+      <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+      </a>
+      <!-- LinkedIn -->
+      <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://127.0.0.1:8000/polls/" target="_blank">
+      <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
+      </a>
+      <!-- Twitter -->
+      <a href="https://twitter.com/share?url=http://127.0.0.1:8000/polls/&amp;text=Repeal%20the%208th%20poll&amp;hashtags=votenow" target="_blank">
+      <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+      </a>
+   </div>
 </body>
 <style>
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+
+#title{
+text-align: center;
+padding-top: 200px;
+}
+#share{
+padding-left: 10px;
+padding-top: 200px;
+}
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #3a7eb1;
+  position: relative;
+
+}
+h1, h2 {
+  font-family: verdana, sans-serif;
+  color: #fff;
+  text-align: center;
+}
+h2 {
+  font-weight: 400;
 }
 ul {
   min-width: 40px;
@@ -71,11 +100,11 @@ ul {
   -webkit-transform: translate(-50%, -50%);
   -webkit-transform-origin: 50% 50%;
   list-style-type: none;
-  background-color: #3a7eb1;
+  background-color: #fff;
   border-radius: 20px;
 }
 ul li {
-  width: 40px;
+  width: 50px;
   height: 40px;
   margin: 0 5px;
   float: left;
@@ -83,16 +112,60 @@ ul li {
   color: #74b6e8;
   overflow: hidden;
   cursor: pointer;
-  position:
+}
+ul li:hover {
+  color: #3a7eb1;
+}
+ul li i {
+  font-size: 25px;
+  vertical-align: middle;
+  margin: 0 5px;
 }
 ul li:last-of-type {
-  width: 420px;
+  width: 450px;
   height: 40px;
   margin: 0px;
 }
+ul li:last-of-type i {
+  font-size: 40px;
+}
+ul li:last-of-type:hover i {
+  color: #3a7eb1;
+}
 ul li a {
   text-decoration: none;
-  color: #f4f4f4;
+  color: #74b6e8;
 }
-
+ul li a:hover {
+  color: #3a7eb1;
+}
+h1 {
+font-family: 'Open Sans', serif;
+font-weight: 300;
+text-transform: uppercase;
+font-size: 3.7em;
+}
+h2 {
+font-family: 'Open Sans', serif;
+font-weight: 300;
+color: #fff;
+font-size: 1.9em;
+}
+.page-header {
+border: none;
+text-align: center;
+}
+.page-header h1 {
+margin-bottom: 6px;
+}
+.page-header h2 {
+margin-top: 0;
+}
+hr {
+height: 1px;
+border-top: 1px solid #ccc;
+margin: 1em 0;
+margin-left: 90px;
+margin-right: 90px;
+}
 </style>

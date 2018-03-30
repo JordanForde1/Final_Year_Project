@@ -2,725 +2,713 @@
 {% load mathfilters %}
 {% load bootstrap3 %}
 <head>
-    <!-- Map in center of the screen -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
-    <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
-    <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
+   <!-- Map in center of the screen -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+   <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+   <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
+   <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 </head>
-
 <h1>{{ questions.question_text }}</h1>
 <body>
-<h3>Progress bars!</h3>
-<div class="container" id="container">
-    <strong> Yes and no votes!</strong><br />
-        {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+   <h3>Progress bars!</h3>
+   <div class="container" id="container">
+      <strong> Yes and no votes!</strong><br />
+      {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Male and Female voters!</strong>
+      {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Ages of voters!</strong>
+      {% for age in questions.age_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Education of voters!</strong>
+      {% for education in questions.education_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Religion of voters!</strong>
+      {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Ethnicity of voters!</strong>
+      {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br />
+   <div class="container" id="container">
+      <strong> Income of voters!</strong>
+      {% for income in questions.income_set.all|dictsortreversed:"id" %}
+      <div class="progress">
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+      </div>
+   </div>
+   {% endfor %}
+   </div>
+   <br /><br />
+   <h3>Charts!</h3>
+   <div class="container">
+      <div class="row">
+         <strong> Yes or no vote pie chart!</strong>
+         <canvas id="choiceChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Male and Female pie chart!</strong>
+         <canvas id="genderChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Age bar chart!</strong>
+         <canvas id="ageChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Education bar chart!</strong>
+         <canvas id="educationChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Religion bar chart!</strong>
+         <canvas id="religionChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Ethnicity bar chart!</strong>
+         <canvas id="ethnicityChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <div class="container">
+      <div class="row">
+         <strong> Income bar chart!</strong>
+         <canvas id="incomeChart" width="100" height="50"></canvas>
+      </div>
+   </div>
+   <br />
+   <br />
+   <script>
+      var dataVote = [];
+      {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
+          dataVote.push({{ choice.votes }});
+      {% endfor %}
 
-<br />
+      var dataGender = [];
+      {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
+          dataGender.push({{ gender.num }});
+      {% endfor %}
 
-<div class="container" id="container">
-    <strong> Male and Female voters!</strong>
-        {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+      var dataAge = [];
+      {% for age in questions.age_set.all|dictsortreversed:"id" %}
+          dataAge.push({{ age.option }});
+      {% endfor %}
 
-<br />
+      var dataEducation = [];
+      {% for education in questions.education_set.all|dictsortreversed:"id" %}
+          dataEducation.push({{ education.number }});
+      {% endfor %}
 
-<div class="container" id="container">
-    <strong> Ages of voters!</strong>
-        {% for age in questions.age_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+      var dataReligion = [];
+      {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
+          dataReligion.push({{ religion.pick }});
+      {% endfor %}
 
-<br />
+      var dataEthnicity = [];
+      {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
+          dataEthnicity.push({{ ethnicity.racenum }});
+      {% endfor %}
 
-<div class="container" id="container">
-    <strong> Education of voters!</strong>
-        {% for education in questions.education_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+      var dataIncome = [];
+      {% for income in questions.income_set.all|dictsortreversed:"id" %}
+          dataIncome.push({{ income.amount }});
+      {% endfor %}
 
-<br />
+      var percent_vote = [];
+      var percent_gender = [];
+      var percent_age = [];
+      var percent_education = [];
+      var percent_religion = [];
+      var percent_ethnicity = [];
+      var percent_income = [];
+      var total_data = {{ view.kwargs.totalVotes }};
 
-<div class="container" id="container">
-    <strong> Religion of voters!</strong>
-        {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+      for (i = 0; i < 2 ; i++){
+          percent_gender.push((dataGender[i] / total_data) * 100);
+      }
 
-<br />
+      for (i = 0; i < 2 ; i++){
+          percent_vote.push((dataVote[i] / total_data) * 100);
+      }
 
-<div class="container" id="container">
-    <strong> Ethnicity of voters!</strong>
-        {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
+      for (i = 0; i < 6 ; i++){
+          percent_age.push((dataAge[i] / total_data) * 100);
+      }
 
-<br />
+      for (i = 0; i < 6 ; i++){
+           percent_education.push((dataEducation[i] / total_data) * 100);
+      }
 
-<div class="container" id="container">
-    <strong> Income of voters!</strong>
-        {% for income in questions.income_set.all|dictsortreversed:"id" %}
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%</div>
-            </div>
-        {% endfor %}
-</div>
-<br /><br />
-<h3>Charts!</h3>
-<div class="container">
-    <div class="row">
-            <strong> Yes or no vote pie chart!</strong>
-            <canvas id="choiceChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
+      for (i = 0; i < 6 ; i++){
+          percent_religion.push((dataReligion[i] / total_data) * 100).toFixed(1);
+      }
 
-<div class="container">
-    <div class="row">
-        <strong> Male and Female pie chart!</strong>
-        <canvas id="genderChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
+      for (i = 0; i < 5 ; i++){
+          percent_ethnicity.push((dataEthnicity[i] / total_data) * 100);
+      }
 
-<div class="container">
-    <div class="row">
-        <strong> Age bar chart!</strong>
-        <canvas id="ageChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
+      for (i = 0; i < 6 ; i++){
+          percent_income.push((dataIncome[i] / total_data) * 100);
+      }
 
-<div class="container">
-    <div class="row">
-        <strong> Education bar chart!</strong>
-        <canvas id="educationChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
+      var cc = document.getElementById("choiceChart").getContext('2d');
+      var choiceChart = new Chart(cc, {
+          type: 'doughnut',
+          data: {
+              labels: ["I am for", "I am against"],
+              datasets: [{
+                  label: 'Percentage of Votes',
+                  data: percent_vote,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)'
+                  ],
+                  borderWidth: 1
+              }]
 
-<div class="container">
-    <div class="row">
-        <strong> Religion bar chart!</strong>
-        <canvas id="religionChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
-
-<div class="container">
-    <div class="row">
-        <strong> Ethnicity bar chart!</strong>
-        <canvas id="ethnicityChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
-
-<div class="container">
-    <div class="row">
-        <strong> Income bar chart!</strong>
-        <canvas id="incomeChart" width="100" height="50"></canvas>
-    </div>
-</div>
-<br />
-<br />
-
-<script>
-        var dataVote = [];
-        {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
-            dataVote.push({{ choice.votes }});
-        {% endfor %}
-
-        var dataGender = [];
-        {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
-            dataGender.push({{ gender.num }});
-        {% endfor %}
-
-        var dataAge = [];
-        {% for age in questions.age_set.all|dictsortreversed:"id" %}
-            dataAge.push({{ age.option }});
-        {% endfor %}
-
-        var dataEducation = [];
-        {% for education in questions.education_set.all|dictsortreversed:"id" %}
-            dataEducation.push({{ education.number }});
-        {% endfor %}
-
-        var dataReligion = [];
-        {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
-            dataReligion.push({{ religion.pick }});
-        {% endfor %}
-
-        var dataEthnicity = [];
-        {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
-            dataEthnicity.push({{ ethnicity.racenum }});
-        {% endfor %}
-
-        var dataIncome = [];
-        {% for income in questions.income_set.all|dictsortreversed:"id" %}
-            dataIncome.push({{ income.amount }});
-        {% endfor %}
-
-        var percent_vote = [];
-        var percent_gender = [];
-        var percent_age = [];
-        var percent_education = [];
-        var percent_religion = [];
-        var percent_ethnicity = [];
-        var percent_income = [];
-        var total_data = {{ view.kwargs.totalVotes }};
-
-        for (i = 0; i < 2 ; i++){
-            percent_gender.push((dataGender[i] / total_data) * 100);
-        }
-
-        for (i = 0; i < 2 ; i++){
-            percent_vote.push((dataVote[i] / total_data) * 100);
-        }
-
-        for (i = 0; i < 6 ; i++){
-            percent_age.push((dataAge[i] / total_data) * 100);
-        }
-
-        for (i = 0; i < 6 ; i++){
-             percent_education.push((dataEducation[i] / total_data) * 100);
-        }
-
-        for (i = 0; i < 6 ; i++){
-            percent_religion.push((dataReligion[i] / total_data) * 100).toFixed(1);
-        }
-
-        for (i = 0; i < 5 ; i++){
-            percent_ethnicity.push((dataEthnicity[i] / total_data) * 100);
-        }
-
-        for (i = 0; i < 6 ; i++){
-            percent_income.push((dataIncome[i] / total_data) * 100);
-        }
-
-        var cc = document.getElementById("choiceChart").getContext('2d');
-        var choiceChart = new Chart(cc, {
-            type: 'doughnut',
-            data: {
-                labels: ["I am for", "I am against"],
-                datasets: [{
-                    label: 'Percentage of Votes',
-                    data: percent_vote,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-
-         var gc = document.getElementById("genderChart").getContext('2d');
-         var genderChart = new Chart(gc, {
-            type: 'doughnut',
-            data: {
-                labels: ["Male", "Female"],
-                datasets: [{
-                    label: 'Percentage of Votes',
-                    data: percent_gender,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-
-        var ac = document.getElementById("ageChart").getContext('2d');
-        var ageChart = new Chart(ac, {
-            type: 'bar',
-            data: {
-                labels: ["18-24", "25-34", "35-44", "45-54", "55-64", "65 or older"],
-                datasets: [{
-                    label: 'Percentage of Votes',
-                    data: percent_age,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-
-        var ec = document.getElementById("educationChart").getContext('2d');
-            var educationChart = new Chart(ec, {
-                type: 'bar',
-                data: {
-                    labels: ["Junior Cert", "Leaving Cert", "PLC", "BA", "MA", "Doctorate"],
-                    datasets: [{
-                        label: 'Percentage of Votes',
-                        data: percent_education,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-
-            var rc = document.getElementById("religionChart").getContext('2d');
-            var religionChart = new Chart(rc, {
-                type: 'bar',
-                data: {
-                    labels: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism","No Religion"],
-                    datasets: [{
-                        label: 'Percentage of Votes',
-                        data: percent_religion,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-
-            var etc = document.getElementById("ethnicityChart").getContext('2d');
-            var ethnicityChart = new Chart(etc, {
-                type: 'bar',
-                data: {
-                    labels: ["White", "Black", "Hispanic", "Asian", "Other"],
-                    datasets: [{
-                        label: 'Percentage of Votes',
-                        data: percent_ethnicity,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-
-            var ic = document.getElementById("incomeChart").getContext('2d');
-            var incomeChart = new Chart(ic, {
-                type: 'bar',
-                data: {
-                    labels: ["Social Welfare", "0-30k", "30k-50k","50k-75k", "75k-100k", "100k+"],
-                    datasets: [{
-                        label: 'Percentage  of Votes',
-                        data: percent_income,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero:true
-                            }
-                        }]
-                    }
-                }
-            });
-</script>
-<br /><br />
-
-<h3>Map!</h3>
-<form>
-        <div id="buttons">
-            <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)" checked>Repeal The 8th Poll<br>
-            <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum<br>
-            <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Both<br>
-        </div>
-</form>
-<!-- initialising map-->
-<!-- Div to show the RepealHeatmap -->
-<div id="mapid" >
-<style>
-    #mapid{
-      margin: auto;
-      height: 600px;
-      width: 900px;
-      padding: 130px;
-    }
-
-    #buttons{
-        padding: 15px;
-    }
-</style>
-<script>
-        var points = [];
-        var marriagePoints = [];
-
-        var lat = [
-        -7.13146339548252,
-        -7.04348955146049,
-        -9.04479245707481,
-        -8.26786531057318,
-        -8.52939766954459,
-        -8.9570970818183,
-        -8.422810421735,
-        -9.21624044318564,
-        -7.89535104745885,
-        -6.16182254747552,
-        -6.24833540141698,
-        -6.26178831233218,
-        -6.23870976691181,
-        -6.28320489357867,
-        -6.23820872138959,
-        -6.45903454709705,
-        -6.32944385856961,
-        -6.35685585892419,
-        -6.38086452406351,
-        -6.15001594279662,
-        -8.63432405187148,
-        -9.45728376643784,
-        -9.72197227687176,
-        -6.72776891887779,
-        -6.85211420831545,
-        -7.33535239032412,
-        -8.79465665061881,
-        -8.47952460969623,
-        -7.59542750524393,
-        -6.40443677791646,
-        -9.39853766092637,
-        -6.60450766391124,
-        -6.96277441283594,
-        -7.71820608895521,
-        -8.28958966330417,
-        -8.2244903240463,
-        -7.93221640577651,
-        -7.59710824971242,
-        -6.57147738763868,
-        -6.38944881256778
-        ];
-
-        var long = [
-        52.6096246434056,
-        54.051557430385,
-        52.8410045833781,
-        52.0730703696247,
-        51.9993830370912,
-        52.0381735432769,
-        51.8338783799749,
-        51.6589304587245,
-        54.9398981451611,
-        53.383045166645,
-        53.3256226236432,
-        53.3573362579541,
-        53.5154403858311,
-        53.3899309617988,
-        53.2552709820359,
-        53.3050328126896,
-        53.3300651298291,
-        53.2558250359047,
-        53.3948890380717,
-        53.2554809055038,
-        53.2855983362025,
-        53.4272357153692,
-        52.1193187636945,
-        53.3270057030943,
-        53.1177912528751,
-        52.9898400211206,
-        52.4726324864623,
-        52.6407334575277,
-        53.5937173474386,
-        53.8885362844314,
-        53.9471400084625,
-        53.6577839315722,
-        53.6047290734378,
-        53.1617861543383,
-        53.6714149906981,
-        54.1581415278177,
-        52.584703829407,
-        52.1734310603601,
-        52.4598905336528,
-        52.9715892905177
-        ];
-
-        var gayMarriageTotalVotes =[
-        53030,
-        51784,
-        41755,
-        39894,
-        43900,
-        83794,
-        52086,
-        30592,
-        29809,
-        35479,
-        42346,
-        45117,
-        39549,
-        36736,
-        58400,
-        39820,
-        39458,
-        42162,
-        36719,
-        57787,
-        27196,
-        46894,
-        59580,
-        34123,
-        34123,
-        26789,
-        29667,
-        46599,
-        41856,
-        42508,
-        54273,
-        24692,
-        24692,
-        24573,
-        29326,
-        39704,
-        67460,
-        41224,
-        49792,
-        50017
-        ];
-
-        var dataConstituency = [];
-        {% for constituency in questions.constituency_set.all|dictsort:"id" %}
-            dataConstituency.push({{ constituency.intensity }});
-        {% endfor %}
-
-        for (i =0; i < 40; i++){
-            if(dataConstituency[i] > 0){
-                points.push({
-                "lat": long[i],
-                "lng": lat[i],
-                "count": dataConstituency[i]
-            });
-            }
-        }
-
-        for (i =0; i < 40; i++){
-            if(gayMarriageTotalVotes[i] > 0){
-                marriagePoints.push({
-                "lat": long[i],
-                "lng": lat[i],
-                "count": gayMarriageTotalVotes[i]
-            });
-            }
-        }
-
-        var centroids = {
-            length: 40,
-            data: points
-        };
-
-        var marriageCentroids = {
-            length: 40,
-            data: marriagePoints
-        };
-
-        var baseLayer = L.tileLayer(
-          'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: '...',
-            maxZoom: 10,
-            minZoom: 7,
-            defaultZoom: 6
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
           }
-        );
+      });
 
-        var refs = new L.LayerGroup();
+       var gc = document.getElementById("genderChart").getContext('2d');
+       var genderChart = new Chart(gc, {
+          type: 'doughnut',
+          data: {
+              labels: ["Male", "Female"],
+              datasets: [{
+                  label: 'Percentage of Votes',
+                  data: percent_gender,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
 
-        var cfg = {
-          "radius": .2,
-          "maxOpacity": .5,
-          "scaleRadius": true,
-          "useLocalExtrema": true,
-          latField: 'lat',
-          lngField: 'lng',
-          valueField: 'count'
-        };
+      var ac = document.getElementById("ageChart").getContext('2d');
+      var ageChart = new Chart(ac, {
+          type: 'bar',
+          data: {
+              labels: ["18-24", "25-34", "35-44", "45-54", "55-64", "65 or older"],
+              datasets: [{
+                  label: 'Percentage of Votes',
+                  data: percent_age,
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)'
+                  ],
+                  borderColor: [
+                      'rgba(255,99,132,1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
 
-        var heatmapLayer = new HeatmapOverlay(cfg);
-        //var marriageheatmapLayer = new HeatmapOverlay(cfg);
+      var ec = document.getElementById("educationChart").getContext('2d');
+          var educationChart = new Chart(ec, {
+              type: 'bar',
+              data: {
+                  labels: ["Junior Cert", "Leaving Cert", "PLC", "BA", "MA", "Doctorate"],
+                  datasets: [{
+                      label: 'Percentage of Votes',
+                      data: percent_education,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
 
-        var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer, refs, heatmapLayer]});
-        heatmapLayer.setData(centroids);
+          var rc = document.getElementById("religionChart").getContext('2d');
+          var religionChart = new Chart(rc, {
+              type: 'bar',
+              data: {
+                  labels: ["Christianity", "Islam", "Hinduism", "Buddhism", "Judaism","No Religion"],
+                  datasets: [{
+                      label: 'Percentage of Votes',
+                      data: percent_religion,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
 
-            // Function called when a button is clicked
-      		function check(id)
-      		{
-            	// If it the Repeal button
-            	if(id === "Repeal") {
-                    // If it is selected
-                    if (document.getElementById(id).checked = true) {
+          var etc = document.getElementById("ethnicityChart").getContext('2d');
+          var ethnicityChart = new Chart(etc, {
+              type: 'bar',
+              data: {
+                  labels: ["White", "Black", "Hispanic", "Asian", "Other"],
+                  datasets: [{
+                      label: 'Percentage of Votes',
+                      data: percent_ethnicity,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
 
-                    }
-                }
+          var ic = document.getElementById("incomeChart").getContext('2d');
+          var incomeChart = new Chart(ic, {
+              type: 'bar',
+              data: {
+                  labels: ["Social Welfare", "0-30k", "30k-50k","50k-75k", "75k-100k", "100k+"],
+                  datasets: [{
+                      label: 'Percentage  of Votes',
+                      data: percent_income,
+                      backgroundColor: [
+                          'rgba(255, 99, 132, 0.2)',
+                          'rgba(54, 162, 235, 0.2)',
+                          'rgba(255, 206, 86, 0.2)',
+                          'rgba(75, 192, 192, 0.2)',
+                          'rgba(153, 102, 255, 0.2)',
+                          'rgba(255, 159, 64, 0.2)'
+                      ],
+                      borderColor: [
+                          'rgba(255,99,132,1)',
+                          'rgba(54, 162, 235, 1)',
+                          'rgba(255, 206, 86, 1)',
+                          'rgba(75, 192, 192, 1)',
+                          'rgba(153, 102, 255, 1)',
+                          'rgba(255, 159, 64, 1)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
+   </script>
+   <br /><br />
+   <h3>Map!</h3>
+   <form>
+      <div id="buttons">
+         <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)">Repeal The 8th Poll<br>
+         <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum<br>
+         <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Overlay both maps<br>
+      </div>
+   </form>
+   <!-- initialising map-->
+   <!-- Div to show the RepealHeatmap -->
+   <div id="mapid" >
+      <style>
+         #mapid{
+         margin: auto;
+         height: 600px;
+         width: 900px;
+         padding: 130px;
+         }
+         #buttons{
+         padding: 15px;
+         }
+      </style>
+      <script>
+         var points = [];
+         var marriagePoints = [];
 
-                // If it the Gay button
-                else if(id === "Gay")
-                {
-                	// If it is selected
-                	if(document.getElementById(id).checked = true) {
+         var lat = [
+         -7.13146339548252,
+         -7.04348955146049,
+         -9.04479245707481,
+         -8.26786531057318,
+         -8.52939766954459,
+         -8.9570970818183,
+         -8.422810421735,
+         -9.21624044318564,
+         -7.89535104745885,
+         -6.16182254747552,
+         -6.24833540141698,
+         -6.26178831233218,
+         -6.23870976691181,
+         -6.28320489357867,
+         -6.23820872138959,
+         -6.45903454709705,
+         -6.32944385856961,
+         -6.35685585892419,
+         -6.38086452406351,
+         -6.15001594279662,
+         -8.63432405187148,
+         -9.45728376643784,
+         -9.72197227687176,
+         -6.72776891887779,
+         -6.85211420831545,
+         -7.33535239032412,
+         -8.79465665061881,
+         -8.47952460969623,
+         -7.59542750524393,
+         -6.40443677791646,
+         -9.39853766092637,
+         -6.60450766391124,
+         -6.96277441283594,
+         -7.71820608895521,
+         -8.28958966330417,
+         -8.2244903240463,
+         -7.93221640577651,
+         -7.59710824971242,
+         -6.57147738763868,
+         -6.38944881256778
+         ];
 
-                	}
-                }
+         var long = [
+         52.6096246434056,
+         54.051557430385,
+         52.8410045833781,
+         52.0730703696247,
+         51.9993830370912,
+         52.0381735432769,
+         51.8338783799749,
+         51.6589304587245,
+         54.9398981451611,
+         53.383045166645,
+         53.3256226236432,
+         53.3573362579541,
+         53.5154403858311,
+         53.3899309617988,
+         53.2552709820359,
+         53.3050328126896,
+         53.3300651298291,
+         53.2558250359047,
+         53.3948890380717,
+         53.2554809055038,
+         53.2855983362025,
+         53.4272357153692,
+         52.1193187636945,
+         53.3270057030943,
+         53.1177912528751,
+         52.9898400211206,
+         52.4726324864623,
+         52.6407334575277,
+         53.5937173474386,
+         53.8885362844314,
+         53.9471400084625,
+         53.6577839315722,
+         53.6047290734378,
+         53.1617861543383,
+         53.6714149906981,
+         54.1581415278177,
+         52.584703829407,
+         52.1734310603601,
+         52.4598905336528,
+         52.9715892905177
+         ];
 
-                // If it the Both button
-                else if(id === "Both")
-                {
-                	// If it is selected
-                	if(document.getElementById(id).checked = true) {
+         var gayMarriageTotalVotes =[
+         53030,
+         51784,
+         41755,
+         39894,
+         43900,
+         83794,
+         52086,
+         30592,
+         29809,
+         35479,
+         42346,
+         45117,
+         39549,
+         36736,
+         58400,
+         39820,
+         39458,
+         42162,
+         36719,
+         57787,
+         27196,
+         46894,
+         59580,
+         34123,
+         34123,
+         26789,
+         29667,
+         46599,
+         41856,
+         42508,
+         54273,
+         24692,
+         24692,
+         24573,
+         29326,
+         39704,
+         67460,
+         41224,
+         49792,
+         50017
+         ];
 
-                	}
-                }
-      		}
-</script>
-</div>
+         var dataConstituency = [];
+         {% for constituency in questions.constituency_set.all|dictsort:"id" %}
+             dataConstituency.push({{ constituency.intensity }});
+         {% endfor %}
+
+         for (i =0; i < 40; i++){
+             if(dataConstituency[i] > 0){
+                 points.push({
+                 "lat": long[i],
+                 "lng": lat[i],
+                 "count": dataConstituency[i]
+             });
+             }
+         }
+
+         for (i =0; i < 40; i++){
+             if(gayMarriageTotalVotes[i] > 0){
+                 marriagePoints.push({
+                 "lat": long[i],
+                 "lng": lat[i],
+                 "count": gayMarriageTotalVotes[i]
+             });
+             }
+         }
+
+         var centroids = {
+             length: 40,
+             data: points
+         };
+
+         var marriageCentroids = {
+             length: 40,
+             data: marriagePoints
+         };
+
+         var baseLayer = L.tileLayer(
+           'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+             attribution: '...',
+             maxZoom: 10,
+             minZoom: 7,
+             defaultZoom: 6
+           }
+         );
+
+         var refs = new L.LayerGroup();
+
+         var cfg = {
+           "radius": .2,
+           "maxOpacity": .5,
+           "scaleRadius": true,
+           "useLocalExtrema": true,
+           latField: 'lat',
+           lngField: 'lng',
+           valueField: 'count'
+         };
+
+         var heatmapLayer = new HeatmapOverlay(cfg);
+
+         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,refs]});
+
+             // Function called when a button is clicked
+         function check(id)
+         {
+             var marriageheatmapLayer = new HeatmapOverlay(cfg);
+             // If it the Repeal button
+             	if(id === "Repeal") {
+                     // If it is selected
+                     if (document.getElementById(id).checked = true) {
+                         heatmapLayer.setData(centroids);
+                     }
+                 }
+
+                 // If it the Gay button
+                 else if(id === "Gay")
+                 {
+                 	// If it is selected
+                 	if(document.getElementById(id).checked = true) {
+                         map.removeLayer(heatmapLayer);
+                         map.addLayer(marriageheatmapLayer);
+                         marriageheatmapLayer.setData(marriageCentroids);
+                 	}
+                 }
+
+                 // If it the Both button
+                 else if(id === "Both")
+                 {
+                 	// If it is selected
+                 	if(document.getElementById(id).checked = true) {
+                 	    map.removeData(marriageCentroids);
+                         heatmapLayer.setData(centroids);
+                 	}
+                 }
+         }
+      </script>
+   </div>
 </body>
