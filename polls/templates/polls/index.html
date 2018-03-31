@@ -1,13 +1,11 @@
 <!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
 <!-- https://simplesharebuttons.com/html-share-buttons/ -->
-{% load static %}
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="{% static 'polls/style.css' %}" />
 <head>
    <div class="container" id="title">
       <div class="row">
          <div class="page-header">
-             <div class="w3-container w3-center w3-animate-opacity"></div>
+             <div class="w3-container w3-center w3-animate-opacity">
                 <h1>Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda.</h1>
                 <hr>
                 <h2>
@@ -17,23 +15,24 @@
                    <hr>
                    Please click the link be to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
                 </h2>
-            </div>
-         </div>
-      </div>
+             </div>
+        </div>
+     </div>
+  </div>
 </head>
 <br>
 <body>
-
+<div class="w3-container w3-center w3-animate-opacity" id="poll">
 {% if latest_question_list %}
-  <ul class="style" style="list-style-type: none;">
+  <ul>
  {% for question in latest_question_list %}
-     <li class="w3-container w3-center" id="link"><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+     <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
  {% endfor %}
   </ul>
 {% else %}
   <p>No polls are available.</p>
 {% endif %}
-
+</div>
    <div class="w3-center w3-animate-opacity" id="share">
       <!-- Reddit -->
       <a href="http://reddit.com/submit?url=http://127.0.0.1:8000/polls/&amp;Repeal the 8th poll!" target="_blank">
@@ -59,7 +58,6 @@
 </body>
 <style>
 @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
-
 #title{
 text-align: center;
 padding-top: 200px;
@@ -134,7 +132,7 @@ ul li:last-of-type:hover i {
 }
 ul li a {
   text-decoration: none;
-  color: #74b6e8;
+  color: #3a7eb1;
 }
 ul li a:hover {
   color: #3a7eb1;
