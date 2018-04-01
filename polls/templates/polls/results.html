@@ -1,10 +1,18 @@
-<!-- Reference:https://docs.djangoproject.com/en/1.11/intro/ -->
+<!-- Reference: https://docs.djangoproject.com/en/1.11/intro/ -->
+<!-- Reference: https://www.w3schools.com/bootstrap/bootstrap_progressbars.asp -->
+<!-- Reference: http://www.chartjs.org/docs/latest/ -->
+<!-- Reference: https://www.patrick-wied.at/static/heatmapjs/ -->
+<!-- Reference: http://leafletjs.com/examples/quick-start/ -->
+<!-- Reference: https://www.google.com/recaptcha/intro/android.html -->
+<!-- Reference: https://www.w3schools.com/w3css/w3css_animate.asp -->
+
 {% load mathfilters %}
 {% load bootstrap3 %}
 <head>
-   <!-- Map in center of the screen -->
+   <!-- all necessary links needed for various library -->
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,80 +22,119 @@
    <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
    <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 </head>
-<h1>{{ questions.question_text }}</h1>
-<body>
-   <h3>Progress bars!</h3>
-   <div class="container" id="container">
-      <strong> Yes and no votes!</strong><br />
-      {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
-      <div class="progress">
-         <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+
+<!-- heading of the page -->
+<div class="container" id="title">
+   <div class="row">
+      <div class="page-header">
+         <div class="w3-container w3-center w3-animate-opacity">
+            <h1>{{ object.question_text }}</h1>
+         </div>
       </div>
    </div>
-   {% endfor %}
+</div>
+<hr />
+
+<body>
+
+   <!-- Showing data gathered by the poll as progress bars -->
+   <div class="w3-animate-opacity">
+      <h2>Progress bars of data gathered form the poll!</h2>
+      <hr />
+      <div class="container" id="container">
+         <strong> Yes and no votes!</strong><br />
+         <!--for loop to loop through database and order the output by id -->
+         {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
+         <div class="progress">
+            <!-- Creating the progress bar and telling it the % based on the votes -->
+            <div id="choice" class="progress-bar progress-bar-success" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         </div>
+      </div>
+      {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Male and Female voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Ages of voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for age in questions.age_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Education of voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for education in questions.education_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Religion of voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Ethnicity of voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br />
+
    <div class="container" id="container">
       <strong> Income of voters!</strong>
+      <!--for loop to loop through database and order the output by id -->
       {% for income in questions.income_set.all|dictsortreversed:"id" %}
       <div class="progress">
-         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <!-- Creating the progress bar and telling it the % based on the votes -->
+         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
    </div>
    <br /><br />
-   <h3>Charts!</h3>
+
+   <!-- Showing the data gathered by the poll in doughnut charts and bar charts -->
+   <h2>Charts of data gathered form the poll!</h2>
+   <hr />
    <div class="container">
       <div class="row">
          <strong> Yes or no vote pie chart!</strong>
@@ -95,6 +142,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Male and Female pie chart!</strong>
@@ -102,6 +150,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Age bar chart!</strong>
@@ -109,6 +158,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Education bar chart!</strong>
@@ -116,6 +166,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Religion bar chart!</strong>
@@ -123,6 +174,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Ethnicity bar chart!</strong>
@@ -130,6 +182,7 @@
       </div>
    </div>
    <br />
+
    <div class="container">
       <div class="row">
          <strong> Income bar chart!</strong>
@@ -138,11 +191,14 @@
    </div>
    <br />
    <br />
+
    <script>
+      //Getting the number of vote from the database for each questions asked
       var dataVote = [];
       {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
           dataVote.push({{ choice.votes }});
       {% endfor %}
+
 
       var dataGender = [];
       {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
@@ -174,6 +230,7 @@
           dataIncome.push({{ income.amount }});
       {% endfor %}
 
+      //Arrays to get the total number of votes
       var percent_vote = [];
       var percent_gender = [];
       var percent_age = [];
@@ -183,6 +240,7 @@
       var percent_income = [];
       var total_data = {{ view.kwargs.totalVotes }};
 
+      //Total as %
       for (i = 0; i < 2 ; i++){
           percent_gender.push((dataGender[i] / total_data) * 100);
       }
@@ -211,6 +269,7 @@
           percent_income.push((dataIncome[i] / total_data) * 100);
       }
 
+      //Creating the charts and adding the appropriate data
       var cc = document.getElementById("choiceChart").getContext('2d');
       var choiceChart = new Chart(cc, {
           type: 'doughnut',
@@ -220,8 +279,8 @@
                   label: 'Percentage of Votes',
                   data: percent_vote,
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)'
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(54, 162, 235, 0.8)'
                   ],
                   borderColor: [
                       'rgba(255,99,132,1)',
@@ -232,16 +291,34 @@
 
           },
           options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
                       }
-                  }]
-              }
-          }
-      });
+                  },
 
+                  scales: {
+                      yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
        var gc = document.getElementById("genderChart").getContext('2d');
        var genderChart = new Chart(gc, {
           type: 'doughnut',
@@ -251,8 +328,8 @@
                   label: 'Percentage of Votes',
                   data: percent_gender,
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)'
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(54, 162, 235, 0.8)'
                   ],
                   borderColor: [
                       'rgba(255,99,132,1)',
@@ -261,16 +338,35 @@
                   borderWidth: 1
               }]
           },
-          options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
+            options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
                       }
-                  }]
+                  },
+
+                  scales: {
+                      yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }]
+                  }
               }
-          }
-      });
+          });
 
       var ac = document.getElementById("ageChart").getContext('2d');
       var ageChart = new Chart(ac, {
@@ -281,12 +377,12 @@
                   label: 'Percentage of Votes',
                   data: percent_age,
                   backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
+                      'rgba(255, 99, 132, 0.8)',
+                      'rgba(54, 162, 235, 0.8)',
+                      'rgba(255, 206, 86, 0.8)',
+                      'rgba(75, 192, 192, 0.8)',
+                      'rgba(153, 102, 255, 0.8)',
+                      'rgba(255, 159, 64, 0.8)'
                   ],
                   borderColor: [
                       'rgba(255,99,132,1)',
@@ -299,17 +395,35 @@
                   borderWidth: 1
               }]
           },
-          options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
+            options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
                       }
-                  }]
-              }
-          }
-      });
+                  },
 
+                  scales: {
+                      yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }]
+                  }
+              }
+          });
       var ec = document.getElementById("educationChart").getContext('2d');
           var educationChart = new Chart(ec, {
               type: 'bar',
@@ -319,12 +433,12 @@
                       label: 'Percentage of Votes',
                       data: percent_education,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(255, 206, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(153, 102, 255, 0.8)',
+                          'rgba(255, 159, 64, 0.8)'
                       ],
                       borderColor: [
                           'rgba(255,99,132,1)',
@@ -338,9 +452,28 @@
                   }]
               },
               options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
+                      }
+                  },
+
                   scales: {
                       yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
                           ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
                               beginAtZero:true
                           }
                       }]
@@ -357,12 +490,12 @@
                       label: 'Percentage of Votes',
                       data: percent_religion,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(255, 206, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(153, 102, 255, 0.8)',
+                          'rgba(255, 159, 64, 0.8)'
                       ],
                       borderColor: [
                           'rgba(255,99,132,1)',
@@ -376,9 +509,28 @@
                   }]
               },
               options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
+                      }
+                  },
+
                   scales: {
                       yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
                           ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
                               beginAtZero:true
                           }
                       }]
@@ -395,11 +547,11 @@
                       label: 'Percentage of Votes',
                       data: percent_ethnicity,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)'
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(255, 206, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(153, 102, 255, 0.8)'
                       ],
                       borderColor: [
                           'rgba(255,99,132,1)',
@@ -412,9 +564,28 @@
                   }]
               },
               options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
+                      }
+                  },
+
                   scales: {
                       yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
                           ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
                               beginAtZero:true
                           }
                       }]
@@ -431,12 +602,12 @@
                       label: 'Percentage  of Votes',
                       data: percent_income,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(255, 206, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(153, 102, 255, 0.8)',
+                          'rgba(255, 159, 64, 0.8)'
                       ],
                       borderColor: [
                           'rgba(255,99,132,1)',
@@ -450,9 +621,28 @@
                   }]
               },
               options: {
+                  legend:{
+                      labels:{
+                          fontColor: '#ffffff'
+                      }
+                  },
+
                   scales: {
                       yAxes: [{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
                           ticks: {
+                              fontColor: '#ffffff',
+                              beginAtZero:true
+                          }
+                      }],
+                      xAxes:[{
+                          gridLines: {
+                            color: 'rgba(255, 255, 255, 255)'
+                          },
+                          ticks: {
+                              fontColor: '#ffffff',
                               beginAtZero:true
                           }
                       }]
@@ -461,16 +651,19 @@
           });
    </script>
    <br /><br />
-   <h3>Map!</h3>
+   <!-- Showing the data gathered by the poll in a heatmap -->
+   <h2>Map of data gathered form the poll and gay marriage referendum!</h2>
+   <hr />
+   <!-- Buttons to switch heatmaps from our poll and the gay marriage referendum poll -->
    <form>
-      <div id="buttons">
-         <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)" checked>Repeal The 8th Poll<br>
-         <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum<br>
-         <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Overlay both maps<br>
+      <div class="w3-container w3-center">
+         <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)" checked>Repeal The 8th Poll&nbsp;
+         <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum&nbsp;
+         <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Overlay both maps&nbsp;
       </div>
    </form>
+
    <!-- initialising map-->
-   <!-- Div to show the RepealHeatmap -->
    <div id="mapid" >
       <style>
          #mapid{
@@ -479,14 +672,14 @@
          width: 900px;
          padding: 130px;
          }
-         #buttons{
-         padding: 15px;
-         }
       </style>
+
       <script>
+         //Arrays of points
          var points = [];
          var marriagePoints = [];
 
+         //latitude of the center of the polygon for each constituency
          var lat = [
          -7.13146339548252,
          -7.04348955146049,
@@ -530,6 +723,7 @@
          -6.38944881256778
          ];
 
+         //longitude of the center of the polygon for each constituency
          var long = [
          52.6096246434056,
          54.051557430385,
@@ -573,6 +767,7 @@
          52.9715892905177
          ];
 
+         //votes for each constituency
          var gayMarriageTotalVotes =[
          53030,
          51784,
@@ -616,11 +811,13 @@
          50017
          ];
 
+         //Getting the number of people who have voted from each constituency
          var dataConstituency = [];
          {% for constituency in questions.constituency_set.all|dictsort:"id" %}
              dataConstituency.push({{ constituency.intensity }});
          {% endfor %}
 
+         //Loop around number of constituencys to add data from our poll
          for (i =0; i < 40; i++){
              if(dataConstituency[i] > 0){
                  points.push({
@@ -631,6 +828,7 @@
              }
          }
 
+         //Loop around number of constituencys to add data from gay marriage referendum
          for (i =0; i < 40; i++){
              if(gayMarriageTotalVotes[i] > 0){
                  marriagePoints.push({
@@ -641,16 +839,19 @@
              }
          }
 
+         //Adding the data to the centroids
          var centroids = {
              length: 40,
              data: points
          };
 
+         //Adding the data to the centroids
          var marriageCentroids = {
              length: 40,
              data: marriagePoints
          };
 
+         //Base layer of the map
          var baseLayer = L.tileLayer(
            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
              attribution: '...',
@@ -660,6 +861,7 @@
            }
          );
 
+         //Configuration of the map
          var cfg = {
            "radius": .2,
            "maxOpacity": .5,
@@ -670,10 +872,14 @@
            valueField: 'count'
          };
 
+         //Heatmap layer
          var marriageheatmapLayer = new HeatmapOverlay(cfg);
          var heatmapLayer = new HeatmapOverlay(cfg);
 
+         //Setting the map
          var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,marriageheatmapLayer]});
+
+         //Having our poll be displayed first
          heatmapLayer.setData(centroids);
 
          // Function called when a button is clicked
@@ -683,6 +889,7 @@
              	if(id === "Repeal") {
                      // If it is selected
                      if (document.getElementById(id).checked = true) {
+                         //Remove any other layers and add our poll
                      	 marriageheatmapLayer.setData({data:[]});
                          heatmapLayer.setData(centroids);
                      }
@@ -693,6 +900,7 @@
                  {
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
+                 	     //Remove any other layers and add gay marriage referendum
                          heatmapLayer.setData({data:[]});
                          marriageheatmapLayer.setData(marriageCentroids);
                  	}
@@ -703,6 +911,7 @@
                  {
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
+                 	    //add both layers
                  	    heatmapLayer.setData(centroids);
                  	    marriageheatmapLayer.setData(marriageCentroids);
                  	}
@@ -710,4 +919,75 @@
          }
       </script>
    </div>
+   </div>
 </body>
+<style>
+   @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+   form{
+   color: #f4f4f4;
+   }
+
+   * {
+   box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   }
+
+   html, body {
+   width: 100%;
+   height: 100%;
+   background-color: #3a7eb1;
+   position: relative;
+   }
+
+   h1, h2 {
+   font-family: verdana, sans-serif;
+   color: #fff;
+   text-align: center;
+   }
+
+   h2 {
+   font-weight: 400;
+   }
+
+   h1 {
+   font-family: 'Open Sans', serif;
+   font-weight: 300;
+   text-transform: uppercase;
+   font-size: 3.7em;
+   }
+
+   h2 {
+   font-family: 'Open Sans', serif;
+   font-weight: 300;
+   color: #fff;
+   font-size: 1.9em;
+   }
+
+   .page-header {
+   border: none;
+   text-align: center;
+   }
+
+   .page-header h1 {
+   margin-bottom: 6px;
+   }
+
+   .page-header h2 {
+   margin-top: 0;
+   }
+
+   hr {
+   height: 1px;
+   border-top: 1px solid #ccc;
+   margin: 1em 0;
+   margin-left: 375px;
+   margin-right: 375px;
+   }
+   strong
+   {
+   padding-left: 15px;
+   color: #f4f4f4;
+   }
+</style>
