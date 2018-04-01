@@ -464,7 +464,7 @@
    <h3>Map!</h3>
    <form>
       <div id="buttons">
-         <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)">Repeal The 8th Poll<br>
+         <input type="radio" name="poll" value="Repeal" id="Repeal" onclick="check(this.id)" checked>Repeal The 8th Poll<br>
          <input type="radio" name="poll" value="Gay" id="Gay" onclick="check(this.id)">Gay Marriage Referendum<br>
          <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Overlay both maps<br>
       </div>
@@ -660,8 +660,6 @@
            }
          );
 
-         var refs = new L.LayerGroup();
-
          var cfg = {
            "radius": .2,
            "maxOpacity": .5,
@@ -672,18 +670,20 @@
            valueField: 'count'
          };
 
+         var marriageheatmapLayer = new HeatmapOverlay(cfg);
          var heatmapLayer = new HeatmapOverlay(cfg);
 
-         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,refs]});
+         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,marriageheatmapLayer]});
+         heatmapLayer.setData(centroids);
 
-             // Function called when a button is clicked
+         // Function called when a button is clicked
          function check(id)
          {
-             var marriageheatmapLayer = new HeatmapOverlay(cfg);
              // If it the Repeal button
              	if(id === "Repeal") {
                      // If it is selected
                      if (document.getElementById(id).checked = true) {
+                     	 marriageheatmapLayer.setData({data:[]});
                          heatmapLayer.setData(centroids);
                      }
                  }
@@ -693,8 +693,7 @@
                  {
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
-                         map.removeLayer(heatmapLayer);
-                         map.addLayer(marriageheatmapLayer);
+                         heatmapLayer.setData({data:[]});
                          marriageheatmapLayer.setData(marriageCentroids);
                  	}
                  }
@@ -704,8 +703,8 @@
                  {
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
-                 	    map.removeData(marriageCentroids);
-                         heatmapLayer.setData(centroids);
+                 	    heatmapLayer.setData(centroids);
+                 	    marriageheatmapLayer.setData(marriageCentroids);
                  	}
                  }
          }
