@@ -46,7 +46,9 @@
          <!--for loop to loop through database and order the output by id -->
          {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
          <div class="progress">
-            <!-- Creating the progress bar and telling it the % based on the votes -->
+             <!-- Creating the progress bar and telling it the % based on the votes -->
+             <!-- Reference: https://stackoverflow.com/questions/33173943/django-reverse-using-kwargs?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+             understanding how t get total votes from on page to another and use it correctly-->
             <div id="choice" class="progress-bar progress-bar-success" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
          </div>
       </div>
@@ -912,8 +914,8 @@
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
                  	    //add both layers
+                        marriageheatmapLayer.setData(marriageCentroids);
                  	    heatmapLayer.setData(centroids);
-                 	    marriageheatmapLayer.setData(marriageCentroids);
                  	}
                  }
          }

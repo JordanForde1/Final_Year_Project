@@ -1,9 +1,11 @@
 # Reference:https://docs.djangoproject.com/en/1.11/intro/
 from django.contrib import admin
 
+#All of the models
 from .models import Choice, Questions,Gender, Age, Education, Religion, Ethnicity, Income, Constituency
 #Editing the admin page
 
+#Making each question editable and deletable
 class ChoiceInline(admin.TabularInline):
     model = Choice
     extra = 1
@@ -36,7 +38,7 @@ class ConstituencyInline(admin.TabularInline):
     model = Constituency
     extra = 1
 
-
+#Questions on the admin page
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['question_text']}),

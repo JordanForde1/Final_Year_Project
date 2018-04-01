@@ -2,9 +2,10 @@
 import datetime
 from django.db import models
 from django.utils import timezone
-from multiselectfield import MultiSelectField
 
 # Create your models here.
+
+#The question we want to ask with publish date to find newest
 class Questions(models.Model):
     question_text = models.CharField(max_length=250)
     pub_date = models.DateTimeField('date published')
@@ -20,6 +21,7 @@ class Questions(models.Model):
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
 #The choices
 class Choice(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
@@ -27,6 +29,7 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+
 #what gender the voter is
 class Gender(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
