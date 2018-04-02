@@ -9,6 +9,7 @@
 
 {% load mathfilters %}
 {% load bootstrap3 %}
+
 <head>
    <!-- all necessary links needed for various library -->
    <meta charset="utf-8">
@@ -23,6 +24,7 @@
    <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
    <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 </head>
+
 <!-- heading of the page -->
 <div class="container" id="title">
    <div class="row">
@@ -40,33 +42,33 @@
    <div class="w3-animate-opacity">
       <h2>Progress bars of data gathered form the poll!</h2>
       <hr />
-       <div class="container" id="show">
-            <select title="display" onChange="check(this)">
-                <option value="YesNoOption"> Yes and no votes</option>
-                <option value="MaleFemaleOption">Male and Female voters</option>
-                <option value="AgesOption">Ages of voters</option>
-                <option value="EducationOption">Education of voters</option>
-                <option value="ReligionOption">Religion of voters</option>
-                <option value="EthnicityOption">Ethnicity of voters</option>
-                <option value="IncomeOption">Income of voters</option>
-            </select>
-        </div>
+      <div class="container" id="show">
+         <select title="display" onChange="check(this)">
+            <option value="YesNoOption"> Yes and no votes</option>
+            <option value="MaleFemaleOption">Male and Female voters</option>
+            <option value="AgesOption">Ages of voters</option>
+            <option value="EducationOption">Education of voters</option>
+            <option value="ReligionOption">Religion of voters</option>
+            <option value="EthnicityOption">Ethnicity of voters</option>
+            <option value="IncomeOption">Income of voters</option>
+         </select>
+      </div>
 
-<div class="container" id="YesNoDiv" style="display: block;">
-         <h3> Yes and no votes!</h3><br />
+      <div class="container" id="YesNoDiv" style="display: block;">
+         <h3> Yes and no votes!</h3>
+         <br />
          <!--for loop to loop through database and order the output by id -->
          {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
          <div class="progress">
-             <!-- Creating the progress bar and telling it the % based on the votes -->
-             <!-- Reference: https://stackoverflow.com/questions/33173943/django-reverse-using-kwargs?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-             understanding how t get total votes from on page to another and use it correctly-->
+            <!-- Creating the progress bar and telling it the % based on the votes -->
+            <!-- Reference: https://stackoverflow.com/questions/33173943/django-reverse-using-kwargs?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+               understanding how t get total votes from on page to another and use it correctly-->
             <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
          </div>
       </div>
       {% endfor %}
-          <br />
+      <br />
    </div>
-
 
    <div class="container" id="MaleFemaleDiv" style="display: none;">
       <h3> Male and Female voters!</h3>
@@ -81,7 +83,6 @@
    <br />
    </div>
 
-
    <div class="container" id="AgesDiv" style="display: none;">
       <h3> Ages of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
@@ -92,9 +93,8 @@
       </div>
    </div>
    {% endfor %}
-     <br />
+   <br />
    </div>
-
 
    <div class="container" id="EducationDiv" style="display: none;">
       <h3> Education of voters!</h3>
@@ -106,9 +106,8 @@
       </div>
    </div>
    {% endfor %}
-    <br />
+   <br />
    </div>
-
 
    <div class="container" id="ReligionDiv" style="display: none;">
       <h3> Religion of voters!</h3>
@@ -120,9 +119,8 @@
       </div>
    </div>
    {% endfor %}
-      <br />
+   <br />
    </div>
-
 
    <div class="container" id="EthnicityDiv" style="display: none;">
       <h3> Ethnicity of voters!</h3>
@@ -134,7 +132,7 @@
       </div>
    </div>
    {% endfor %}
-    <br />
+   <br />
    </div>
 
    <div class="container" id="IncomeDiv" style="display: none;">
@@ -147,372 +145,372 @@
       </div>
    </div>
    {% endfor %}
-      <br />
+   <br />
    </div>
-<br />
 
-<script>
-    // Function called when an option is selected
-    function check(select)
-    {
-        // Get the current option selected
-        var option = select.value;
+   <br />
 
-        // If it the YesNo option
-        if(option === "YesNoOption")
-        {
-            // If the div is none
-            if(document.getElementById("YesNoDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("YesNoDiv").style.display = "block";
+   <script>
+      // Function called when an option is selected
+      function check(select)
+      {
+          // Get the current option selected
+          var option = select.value;
 
-                // Hide the rest
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the YesNo option
+          if(option === "YesNoOption")
+          {
+              // If the div is none
+              if(document.getElementById("YesNoDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("YesNoDiv").style.display = "block";
 
-        // If it the MaleFemale option
-        if(option === "MaleFemaleOption")
-        {
-            // If the div is none
-            if(document.getElementById("MaleFemaleDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("MaleFemaleDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the MaleFemale option
+          if(option === "MaleFemaleOption")
+          {
+              // If the div is none
+              if(document.getElementById("MaleFemaleDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("MaleFemaleDiv").style.display = "block";
 
-        // If it the Ages option
-        if(option === "AgesOption")
-        {
-            // If the div is none
-            if(document.getElementById("AgesDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("AgesDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the Ages option
+          if(option === "AgesOption")
+          {
+              // If the div is none
+              if(document.getElementById("AgesDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("AgesDiv").style.display = "block";
 
-        // If it the Education option
-        if(option === "EducationOption")
-        {
-            // If the div is none
-            if(document.getElementById("EducationDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("EducationDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the Education option
+          if(option === "EducationOption")
+          {
+              // If the div is none
+              if(document.getElementById("EducationDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("EducationDiv").style.display = "block";
 
-        // If it the Religion option
-        if(option === "ReligionOption")
-        {
-            // If the div is none
-            if(document.getElementById("ReligionDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("ReligionDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the Religion option
+          if(option === "ReligionOption")
+          {
+              // If the div is none
+              if(document.getElementById("ReligionDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("ReligionDiv").style.display = "block";
 
-        // If it the Ethnicity option
-        if(option === "EthnicityOption")
-        {
-            // If the div is none
-            if(document.getElementById("EthnicityDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("EthnicityDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("IncomeDiv").style.display = "none";
-            }
-        }
+          // If it the Ethnicity option
+          if(option === "EthnicityOption")
+          {
+              // If the div is none
+              if(document.getElementById("EthnicityDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("EthnicityDiv").style.display = "block";
 
-        // If it the Income option
-        if(option === "IncomeOption")
-        {
-            // If the div is none
-            if(document.getElementById("IncomeDiv").style.display === "none")
-            {
-                // Show it
-                document.getElementById("IncomeDiv").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("IncomeDiv").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDiv").style.display = "none";
-                document.getElementById("MaleFemaleDiv").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDiv").style.display = "none";
-                document.getElementById("ReligionDiv").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-            }
-        }
-    }
-</script>
+          // If it the Income option
+          if(option === "IncomeOption")
+          {
+              // If the div is none
+              if(document.getElementById("IncomeDiv").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("IncomeDiv").style.display = "block";
 
+                  // Hide the rest
+                  document.getElementById("YesNoDiv").style.display = "none";
+                  document.getElementById("MaleFemaleDiv").style.display = "none";
+                  document.getElementById("AgesDiv").style.display = "none";
+                  document.getElementById("EducationDiv").style.display = "none";
+                  document.getElementById("ReligionDiv").style.display = "none";
+                  document.getElementById("EthnicityDiv").style.display = "none";
+              }
+          }
+      }
+   </script>
    <!-- Showing the data gathered by the poll in doughnut charts and bar charts -->
    <h2>Charts of data gathered form the poll!</h2>
    <hr />
-       <div class="container" id="show">
-            <select title="displayGraphs" onChange="checkGraphs(this)">
-                <option value="YesNoOptionChart"> Yes and no votes</option>
-                <option value="MaleFemaleOptionChart">Male and Female voters</option>
-                <option value="AgesOptionChart">Ages of voters</option>
-                <option value="EducationOptionChart">Education of voters</option>
-                <option value="ReligionOptionChart">Religion of voters</option>
-                <option value="EthnicityOptionChart">Ethnicity of voters</option>
-                <option value="IncomeOptionChart">Income of voters</option>
-            </select>
-        </div>
-    </div>
+
+   <div class="container" id="show">
+      <select title="displayGraphs" onChange="checkGraphs(this)">
+         <option value="YesNoOptionChart"> Yes and no votes</option>
+         <option value="MaleFemaleOptionChart">Male and Female voters</option>
+         <option value="AgesOptionChart">Ages of voters</option>
+         <option value="EducationOptionChart">Education of voters</option>
+         <option value="ReligionOptionChart">Religion of voters</option>
+         <option value="EthnicityOptionChart">Ethnicity of voters</option>
+         <option value="IncomeOptionChart">Income of voters</option>
+      </select>
+   </div>
 
    <div class="container" id="YesNoDivChart" style="display: block;">
-       <h3> Yes or no vote pie chart!</h3>
+      <h3> Yes or no vote pie chart!</h3>
       <div class="row">
          <canvas id="choiceChart" width="100" height="50"></canvas>
       </div>
-         <br />
+      <br />
    </div>
 
    <div class="container" id="MaleFemaleDivChart" style="display: none;">
-    <h3> Male and Female pie chart!</h3>
+      <h3> Male and Female pie chart!</h3>
       <div class="row">
          <canvas id="genderChart" width="100" height="50"></canvas>
       </div>
-          <br />
+      <br />
    </div>
 
    <div class="container" id="AgesDivChart" style="display: none;">
-    <h3> Age bar chart!</h3>
+      <h3> Age bar chart!</h3>
       <div class="row">
          <canvas id="ageChart" width="100" height="50"></canvas>
       </div>
-          <br />
+      <br />
    </div>
 
    <div class="container" id="EducationDivChart" style="display: none;">
-     <h3> Education bar chart!</h3>
+      <h3> Education bar chart!</h3>
       <div class="row">
          <canvas id="educationChart" width="100" height="50"></canvas>
       </div>
-        <br />
+      <br />
    </div>
 
    <div class="container" id="ReligionDivChart" style="display: none;">
       <h3> Religion bar chart!</h3>
-       <div class="row">
+      <div class="row">
          <canvas id="religionChart" width="100" height="50"></canvas>
       </div>
-         <br />
+      <br />
    </div>
 
    <div class="container" id="EthnicityDivChart" style="display: none;">
       <h3> Ethnicity bar chart!</h3>
-       <div class="row">
+      <div class="row">
          <canvas id="ethnicityChart" width="100" height="50"></canvas>
       </div>
-          <br />
+      <br />
    </div>
 
    <div class="container" id="IncomeDivChart" style="display: none;">
       <h3> Income bar chart!</h3>
-       <div class="row">
+      <div class="row">
          <canvas id="incomeChart" width="100" height="50"></canvas>
       </div>
-       <br />
+      <br />
    </div>
-<script>
-    // Function called when an option is selected
-    function checkGraphs(select)
-    {
-        // Get the current option selected
-        var option = select.value;
+   </div>
 
-        // If it the YesNo option
-        if(option === "YesNoOptionChart")
-        {
-            // If the div is none
-            if(document.getElementById("YesNoDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("YesNoDivChart").style.display = "block";
+   <script>
+      // Function called when an option is selected
+      function checkGraphs(select)
+      {
+          // Get the current option selected
+          var option = select.value;
 
-                // Hide the rest
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("AgesDivChart").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("EthnicityDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the YesNo option
+          if(option === "YesNoOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("YesNoDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("YesNoDivChart").style.display = "block";
 
-        // If it the MaleFemale option
-        if(option === "MaleFemaleOptionChart")
-        {
-            // If the div is none
-            if(document.getElementById("MaleFemaleDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("MaleFemaleDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("AgesDivChart").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("EthnicityDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the MaleFemale option
+          if(option === "MaleFemaleOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("MaleFemaleDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("MaleFemaleDivChart").style.display = "block";
 
-        // If it the Ages option
-        if(option === "AgesOptionChart")
-        {
-            // If the div is none
-            if(document.getElementById("AgesDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("AgesDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("EthnicityDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the Ages option
+          if(option === "AgesOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("AgesDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("AgesDivChart").style.display = "block";
 
-        // If it the Education option
-        if(option === "EducationDivChart")
-        {
-            // If the div is none
-            if(document.getElementById("EducationDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("EducationDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("EthnicityDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the Education option
+          if(option === "EducationOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("EducationDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("EducationDivChart").style.display = "block";
 
-        // If it the Religion option
-        if(option === "ReligionDivChart")
-        {
-            // If the div is none
-            if(document.getElementById("ReligionDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("ReligionDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("EthnicityDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the Religion option
+          if(option === "ReligionOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("ReligionDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("ReligionDivChart").style.display = "block";
 
-        // If it the Ethnicity option
-        if(option === "EthnicityOptionChart")
-        {
-            // If the div is none
-            if(document.getElementById("EthnicityDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("EthnicityDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("IncomeDivChart").style.display = "none";
-            }
-        }
+          // If it the Ethnicity option
+          if(option === "EthnicityOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("EthnicityDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("EthnicityDivChart").style.display = "block";
 
-        // If it the Income option
-        if(option === "IncomeOptionChart")
-        {
-            // If the div is none
-            if(document.getElementById("IncomeDivChart").style.display === "none")
-            {
-                // Show it
-                document.getElementById("IncomeDivChart").style.display = "block";
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("IncomeDivChart").style.display = "none";
+              }
+          }
 
-                // Hide the rest
-                document.getElementById("YesNoDivChart").style.display = "none";
-                document.getElementById("MaleFemaleDivChart").style.display = "none";
-                document.getElementById("AgesDiv").style.display = "none";
-                document.getElementById("EducationDivChart").style.display = "none";
-                document.getElementById("ReligionDivChart").style.display = "none";
-                document.getElementById("EthnicityDiv").style.display = "none";
-            }
-        }
-    }
-</script>
+          // If it the Income option
+          if(option === "IncomeOptionChart")
+          {
+              // If the div is none
+              if(document.getElementById("IncomeDivChart").style.display === "none")
+              {
+                  // Show it
+                  document.getElementById("IncomeDivChart").style.display = "block";
 
+                  // Hide the rest
+                  document.getElementById("YesNoDivChart").style.display = "none";
+                  document.getElementById("MaleFemaleDivChart").style.display = "none";
+                  document.getElementById("AgesDivChart").style.display = "none";
+                  document.getElementById("EducationDivChart").style.display = "none";
+                  document.getElementById("ReligionDivChart").style.display = "none";
+                  document.getElementById("EthnicityDivChart").style.display = "none";
+              }
+          }
+      }
+   </script>
    <script>
       //Getting the number of vote from the database for each questions asked
       var dataVote = [];
       {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
           dataVote.push({{ choice.votes }});
       {% endfor %}
-
 
       var dataGender = [];
       {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
@@ -966,18 +964,21 @@
           });
    </script>
    <br /><br />
+
    <!-- Showing the data gathered by the poll in a heatmap -->
    <h2>Map of data gathered form the poll and gay marriage referendum!</h2>
    <hr />
+
    <!-- Buttons to switch heatmaps from our poll and the gay marriage referendum poll -->
    <form>
       <div class="w3-container w3-center" id="maptext">
-         <input type="radio" name="poll" value="Repeal" id="Repeal" class="big" onclick="check(this.id)" checked> Repeal The 8th Poll&nbsp;
-         <input type="radio" name="poll" value="Gay" id="Gay" class="big" onclick="check(this.id)"> Gay Marriage Referendum&nbsp;
-         <input type="radio" name="poll" value="Both" id="Both" class="big" onclick="check(this.id)"> Overlay both maps&nbsp;
+         <input type="radio" name="poll" value="Repeal" id="Repeal" class="big" onclick="checkmap(this.id)" checked> Repeal The 8th Poll&nbsp;
+         <input type="radio" name="poll" value="Gay" id="Gay" class="big" onclick="checkmap(this.id)"> Gay Marriage Referendum&nbsp;
+         <input type="radio" name="poll" value="Both" id="Both" class="big" onclick="checkmap(this.id)"> Overlay both maps&nbsp;
       </div>
    </form>
    <br />
+
    <!-- initialising map-->
    <div id="mapid" >
       <style>
@@ -1198,7 +1199,7 @@
          heatmapLayer.setData(centroids);
 
          // Function called when a button is clicked
-         function check(id)
+         function checkmap(id)
          {
              // If it the Repeal button
              	if(id === "Repeal") {
@@ -1234,10 +1235,11 @@
          }
       </script>
    </div>
-   </div>
 </body>
+
 <style>
    @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
+
    form{
    color: #ffffff;
    }
@@ -1286,7 +1288,6 @@
    font-size: 1.9em;
    }
 
-
    .page-header {
    border: none;
    text-align: center;
@@ -1307,15 +1308,17 @@
    margin-left: 475px;
    margin-right: 475px;
    }
-    #maptext{
-        font-family: 'Open Sans', serif;
+
+   #maptext{
+   font-family: 'Open Sans', serif;
    font-weight: 300;
    color: #ffffff;
    font-size: 1.5em;
-    }
-    .big{
-        width: .8em;
-        height: .8em;
-    }
+   }
+
+   .big{
+   width: .8em;
+   height: .8em;
+   }
 
 </style>

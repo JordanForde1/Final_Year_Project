@@ -1,40 +1,45 @@
 <!-- Reference: https://docs.djangoproject.com/en/1.11/intro/ -->
 <!-- Reference: https://simplesharebuttons.com/html-share-buttons/ -->
 <!-- Reference: https://bootsnipp.com/snippets/3MbVp -->
-
 <!-- all necessary links needed for various library -->
+
 <head>
    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <br>
 
 <body>
-  <!-- heading of the page -->
+   <!-- heading of the page -->
    <div class="w3-container w3-center w3-animate-opacity">
       <div class="container" id="title">
          <div class="row">
             <div class="page-header">
+
                <h1>Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda</h1>
                <hr>
+
                <!-- Text explaining the project -->
                <h2>
                   This web application is a polling system used to gather information around the country of Ireland
-                  as to allow campaign parties that are taking part in these referenda to see the high and low concerntations
-                  of yes and no votes along with a plethora of other information about the public. The public can also take part
-                  by filling out the poll and seeing the results.
-              <hr>
+                  to allow campaign parties that are taking part in these referenda to see concentrations
+                  of votes along with a variety of other information about the public. This information is displayed
+                  as a series of graphs, progress bars and heatmaps. The data that has been gathered in this poll
+                  can be compared to the data of previous referedna held in Ireland
+                  <hr>
                   Please click the link to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
-              </h2>
+               </h2>
+
             </div>
          </div>
       </div>
-<hr>
-<br />
+      <hr>
+
+      <br />
       <!-- Showing the latest question -->
       <div class="w3-container w3-center w3-animate-opacity" id="poll">
-         {% if latest_question_list %}
-         <ul>
 
+          {% if latest_question_list %}
+         <ul>
             <!-- link to the poll -->
             {% for question in latest_question_list %}
             <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
@@ -46,62 +51,75 @@
          <p>No polls are available.</p>
          {% endif %}
       </div>
+
       <!-- buttons to share across social media -->
       <div id="share">
+
          <!-- Reddit -->
          <a href="http://reddit.com/submit?url=http://127.0.0.1:8000/polls/&amp;Repeal the 8th poll!" target="_blank">
          <img src="https://simplesharebuttons.com/images/somacro/reddit.png" alt="Reddit" />
          </a>
+
          <!-- Facebook -->
          <a href="http://www.facebook.com/sharer.php?u=http://127.0.0.1:8000/polls/" target="_blank">
          <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
          </a>
+
          <!-- Google+ -->
          <a href="https://plus.google.com/share?url=http://127.0.0.1:8000/polls/" target="_blank">
          <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
          </a>
+
          <!-- LinkedIn -->
          <a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http://127.0.0.1:8000/polls/" target="_blank">
          <img src="https://simplesharebuttons.com/images/somacro/linkedin.png" alt="LinkedIn" />
          </a>
+
          <!-- Twitter -->
          <a href="https://twitter.com/share?url=http://127.0.0.1:8000/polls/&amp;text=Repeal%20the%208th%20poll&amp;hashtags=votenow" target="_blank">
          <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
          </a>
+
       </div>
    </div>
 </body>
+
 <style>
    @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
    #title{
    text-align: center;
    padding-top: 180px;
-
    }
+
    #share{
    padding-left: 10px;
    padding-top: 200px;
    }
+
    * {
    box-sizing: border-box;
    -webkit-box-sizing: border-box;
    margin: 0;
    padding: 0;
    }
+
    html, body {
    width: 100%;
    min-height: 100%;
    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
    position: relative;
    }
+
    h1, h2 {
    font-family: verdana, sans-serif;
    color: #fff;
    text-align: center;
    }
+
    h2 {
    font-weight: 400;
    }
+
    ul {
    width: 420px;
    height: 40px;
@@ -117,6 +135,7 @@
    background-color: #fff;
    border-radius: 20px;
    }
+
    ul li {
    width: 50px;
    height: 40px;
@@ -127,54 +146,67 @@
    overflow: hidden;
    cursor: pointer;
    }
+
    ul li:hover {
    color: #EE82EE;
    }
+
    ul li i {
    font-size: 25px;
    vertical-align: middle;
    margin: 0 5px;
    }
+
    ul li:last-of-type {
    width: 425px;
    height: 40px;
    margin: 0px;
    }
+
    ul li:last-of-type i {
    font-size: 40px;
    }
+
    ul li:last-of-type:hover i {
    color: #EE82EE;
    }
+
    ul li a {
    text-decoration: none;
    color: #EE82EE;
    }
+
    ul li a:hover {
    color: #EE82EE;
    }
+
    h1 {
    font-family: 'Open Sans', serif;
    font-weight: 300;
    text-transform: uppercase;
    font-size: 3.7em;
    }
+
    h2 {
    font-family: 'Open Sans', serif;
    font-weight: 300;
    color: #fff;
    font-size: 1.9em;
    }
+
    .page-header {
    border: none;
    text-align: center;
    }
+
    .page-header h1 {
    margin-bottom: 6px;
    }
+
    .page-header h2 {
    margin-top: 0;
    }
+
    hr {
    height: 1px;
    border-top: 1px solid #fff8f8 ;
