@@ -5,6 +5,7 @@
 <!-- Reference: http://leafletjs.com/examples/quick-start/ -->
 <!-- Reference: https://www.google.com/recaptcha/intro/android.html -->
 <!-- Reference: https://www.w3schools.com/w3css/w3css_animate.asp -->
+<!-- Reference: https://webgradients.com/ -->
 
 {% load mathfilters %}
 {% load bootstrap3 %}
@@ -22,7 +23,6 @@
    <script src="https://rawgit.com/pa7/heatmap.js/master/build/heatmap.min.js"></script>
    <script src="https://rawgit.com/pa7/heatmap.js/master/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
 </head>
-
 <!-- heading of the page -->
 <div class="container" id="title">
    <div class="row">
@@ -36,163 +36,333 @@
 <hr />
 
 <body>
-
    <!-- Showing data gathered by the poll as progress bars -->
    <div class="w3-animate-opacity">
       <h2>Progress bars of data gathered form the poll!</h2>
       <hr />
-      <div class="container" id="container">
-         <strong> Yes and no votes!</strong><br />
+       <!-- <div class="container" id="show">
+            <select title="displayGraphs" onChange="check(this)">
+                <option value="YesNoOption"> Yes and no votes</option>
+                <option value="MaleFemaleOption">Male and Female voters</option>
+                <option value="AgesOption">Ages of voters</option>
+                <option value="EducationOption">Education of voters</option>
+                <option value="ReligionOption">Religion of voters</option>
+                <option value="EthnicityOption">Ethnicity of voters</option>
+                <option value="IncomeOption">Income of voters</option>
+            </select>
+        </div>-->
+    <br />
+<div class="container" id="YesNoDiv" style="display: block;">
+         <h3> Yes and no votes!</h3><br />
          <!--for loop to loop through database and order the output by id -->
          {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
          <div class="progress">
              <!-- Creating the progress bar and telling it the % based on the votes -->
              <!-- Reference: https://stackoverflow.com/questions/33173943/django-reverse-using-kwargs?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
              understanding how t get total votes from on page to another and use it correctly-->
-            <div id="choice" class="progress-bar progress-bar-success" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+            <div id="choice" class="progress-bar progress-bar-info" role="progressbar"  style="width:{{ choice.votes|div:view.kwargs.totalVotes|mul:"100"}}%">{{ choice.choice_text }} : {{ choice.votes|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
          </div>
       </div>
       {% endfor %}
+          <br />
    </div>
-   <br />
 
-   <div class="container" id="container">
-      <strong> Male and Female voters!</strong>
+
+   <div class="container" id="MaleFemaleDiv" style="display: none;">
+      <h3> Male and Female voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ gender.num|div:view.kwargs.totalVotes|mul:"100" }}%">{{ gender.gender_text }} : {{ gender.num|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
-   </div>
    <br />
+   </div>
 
-   <div class="container" id="container">
-      <strong> Ages of voters!</strong>
+
+   <div class="container" id="AgesDiv" style="display: none;">
+      <h3> Ages of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for age in questions.age_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ age.option|div:view.kwargs.totalVotes|mul:"100" }}%">{{ age.age_text }} : {{ age.option|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
+     <br />
    </div>
-   <br />
 
-   <div class="container" id="container">
-      <strong> Education of voters!</strong>
+
+   <div class="container" id="EducationDiv" style="display: none;">
+      <h3> Education of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for education in questions.education_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ education.number|div:view.kwargs.totalVotes|mul:"100" }}%">{{ education.education_text }}: {{ education.number|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
+    <br />
    </div>
-   <br />
 
-   <div class="container" id="container">
-      <strong> Religion of voters!</strong>
+
+   <div class="container" id="ReligionDiv" style="display: none;">
+      <h3> Religion of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100" }}%">{{ religion.religion_text }}: {{ religion.pick|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
+      <br />
    </div>
-   <br />
 
-   <div class="container" id="container">
-      <strong> Ethnicity of voters!</strong>
+
+   <div class="container" id="EthnicityDiv" style="display: none;">
+      <h3> Ethnicity of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100" }}%">{{ ethnicity.ethnicity_text }}: {{ ethnicity.racenum|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
+    <br />
    </div>
-   <br />
 
-   <div class="container" id="container">
-      <strong> Income of voters!</strong>
+   <div class="container" id="IncomeDiv" style="display: none;">
+      <h3> Income of voters!</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for income in questions.income_set.all|dictsortreversed:"id" %}
       <div class="progress">
          <!-- Creating the progress bar and telling it the % based on the votes -->
-         <div class="progress-bar progress-bar-success" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
+         <div class="progress-bar progress-bar-info" role="progressbar" style="width: {{ income.amount|div:view.kwargs.totalVotes|mul:"100" }}%">{{ income.income_text }}: {{ income.amount|div:view.kwargs.totalVotes|mul:"100"|floatformat}}%
       </div>
    </div>
    {% endfor %}
+      <br />
    </div>
-   <br /><br />
+<br />
+<!--<script>
+    // Function called when an option is selected
+    function check(select)
+    {
+        // Get the current option selected
+        var option = select.value;
+
+        // If it the YesNo option
+        if(option === "YesNoOption")
+        {
+            // If the div is none
+            if(document.getElementById("YesNoDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("YesNoDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the MaleFemale option
+        if(option === "MaleFemaleOption")
+        {
+            // If the div is none
+            if(document.getElementById("MaleFemaleDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("MaleFemaleDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the Ages option
+        if(option === "AgesOption")
+        {
+            // If the div is none
+            if(document.getElementById("AgesDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("AgesDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the Education option
+        if(option === "EducationOption")
+        {
+            // If the div is none
+            if(document.getElementById("EducationDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("EducationDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the Religion option
+        if(option === "ReligionOption")
+        {
+            // If the div is none
+            if(document.getElementById("ReligionDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("ReligionDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the Ethnicity option
+        if(option === "EthnicityOption")
+        {
+            // If the div is none
+            if(document.getElementById("EthnicityDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("EthnicityDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("IncomeDiv").style.display = "none";
+            }
+        }
+
+        // If it the Income option
+        if(option === "IncomeOption")
+        {
+            // If the div is none
+            if(document.getElementById("IncomeDiv").style.display === "none")
+            {
+                // Show it
+                document.getElementById("IncomeDiv").style.display = "block";
+
+                // Hide the rest
+                document.getElementById("YesNoDiv").style.display = "none";
+                document.getElementById("MaleFemaleDiv").style.display = "none";
+                document.getElementById("AgesDiv").style.display = "none";
+                document.getElementById("EducationDiv").style.display = "none";
+                document.getElementById("ReligionDiv").style.display = "none";
+                document.getElementById("EthnicityDiv").style.display = "none";
+            }
+        }
+    }
+</script>-->
 
    <!-- Showing the data gathered by the poll in doughnut charts and bar charts -->
    <h2>Charts of data gathered form the poll!</h2>
    <hr />
-   <div class="container">
+         <!-- <div class="container" id="show">
+            <select title="displayGraphs">
+                <option value="YesNoGraphs" id="YesNoGraphs" onclick="checkGraphs(this.id)"> Yes and no votes!</option>
+                <option value="MaleFemaleGraphs" id="MaleFemaleGraphs" onclick="checkGraphs(this.id)">Male and Female voters!</option>
+                <option value="AgesGraphs" id="AgesGraphs" onclick="checkGraphs(this.id)">Ages of voters!</option>
+                <option value="EducationGraphs" id="EducationGraphs" onclick="checkGraphs(this.id)">Education of voters!</option>
+                <option value="ReligionGraphs" id="ReligionGraphs" onclick="checkGraphs(this.id)">Religion of voters!</option>
+                <option value="EthnicityGraphs" id="EthnicityGraphs" onclick="checkGraphs(this.id)">Ethnicity of voters!</option>
+                <option value="IncomeGraphs" id="IncomeGraphs" onclick="checkGraphs(this.id)">Income of voters!</option>
+            </select>-->
+    </div>
+   <br />
+
+   <div class="container" id="yes_no_chart" style="display: block;">
       <div class="row">
-         <strong> Yes or no vote pie chart!</strong>
+         <h3> Yes or no vote pie chart!</h3>
          <canvas id="choiceChart" width="100" height="50"></canvas>
       </div>
+         <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="male_female_chart" style="display: none;">
       <div class="row">
-         <strong> Male and Female pie chart!</strong>
+         <h3> Male and Female pie chart!</h3>
          <canvas id="genderChart" width="100" height="50"></canvas>
       </div>
+          <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="age_chart" style="display: none;">
       <div class="row">
-         <strong> Age bar chart!</strong>
+         <h3> Age bar chart!</h3>
          <canvas id="ageChart" width="100" height="50"></canvas>
       </div>
+          <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="eduction_chart" style="display: none;">
       <div class="row">
-         <strong> Education bar chart!</strong>
+         <h3> Education bar chart!</h3>
          <canvas id="educationChart" width="100" height="50"></canvas>
       </div>
+        <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="religion_chart" style="display: none;">
       <div class="row">
-         <strong> Religion bar chart!</strong>
+         <h3> Religion bar chart!</h3>
          <canvas id="religionChart" width="100" height="50"></canvas>
       </div>
+         <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="ethnicity_chart" style="display: none;">
       <div class="row">
-         <strong> Ethnicity bar chart!</strong>
+         <h3> Ethnicity bar chart!</h3>
          <canvas id="ethnicityChart" width="100" height="50"></canvas>
       </div>
+          <br />
    </div>
-   <br />
 
-   <div class="container">
+   <div class="container" id="income_chart" style="display: none;">
       <div class="row">
-         <strong> Income bar chart!</strong>
+         <h3> Income bar chart!</h3>
          <canvas id="incomeChart" width="100" height="50"></canvas>
       </div>
+       <br />
    </div>
-   <br />
-   <br />
 
    <script>
       //Getting the number of vote from the database for each questions asked
@@ -292,35 +462,36 @@
               }]
 
           },
-          options: {
-                  legend:{
-                      labels:{
-                          fontColor: '#ffffff'
-                      }
-                  },
-
-                  scales: {
-                      yAxes: [{
-                          gridLines: {
-                            color: 'rgba(255, 255, 255, 255)'
-                          },
-                          ticks: {
-                              fontColor: '#ffffff',
-                              beginAtZero:true
-                          }
-                      }],
-                      xAxes:[{
-                          gridLines: {
-                            color: 'rgba(255, 255, 255, 255)'
-                          },
-                          ticks: {
-                              fontColor: '#ffffff',
-                              beginAtZero:true
-                          }
-                      }]
+        options: {
+              legend:{
+                  labels:{
+                      fontColor: '#ffffff'
                   }
+              },
+
+              scales: {
+                  yAxes: [{
+                      gridLines: {
+                        color: 'rgba(255, 255, 255, 255)'
+                      },
+                      ticks: {
+                          fontColor: '#ffffff',
+                          beginAtZero:true
+                      }
+                  }],
+                  xAxes:[{
+                      gridLines: {
+                        color: 'rgba(255, 255, 255, 255)'
+                      },
+                      ticks: {
+                          fontColor: '#ffffff',
+                          beginAtZero:true
+                      }
+                  }]
               }
-          });
+          }
+      });
+
        var gc = document.getElementById("genderChart").getContext('2d');
        var genderChart = new Chart(gc, {
           type: 'doughnut',
@@ -604,7 +775,7 @@
                       label: 'Percentage  of Votes',
                       data: percent_income,
                       backgroundColor: [
-                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(255, 99, 132, .8)',
                           'rgba(54, 162, 235, 0.8)',
                           'rgba(255, 206, 86, 0.8)',
                           'rgba(75, 192, 192, 0.8)',
@@ -622,7 +793,7 @@
                       borderWidth: 1
                   }]
               },
-              options: {
+            options: {
                   legend:{
                       labels:{
                           fontColor: '#ffffff'
@@ -664,7 +835,7 @@
          <input type="radio" name="poll" value="Both" id="Both" onclick="check(this.id)">Overlay both maps&nbsp;
       </div>
    </form>
-
+   <br />
    <!-- initialising map-->
    <div id="mapid" >
       <style>
@@ -926,7 +1097,7 @@
 <style>
    @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
    form{
-   color: #f4f4f4;
+   color: #ffffff;
    }
 
    * {
@@ -938,14 +1109,14 @@
 
    html, body {
    width: 100%;
-   height: 100%;
-   background-color: #3a7eb1;
+   min-height: 100%;
+   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
    position: relative;
    }
 
    h1, h2 {
    font-family: verdana, sans-serif;
-   color: #fff;
+   color: #ffffff;
    text-align: center;
    }
 
@@ -963,9 +1134,16 @@
    h2 {
    font-family: 'Open Sans', serif;
    font-weight: 300;
+   color: #ffffff;
+   font-size: 1.9em;
+   }
+
+   h3{
+   font-family: 'Open Sans', serif;
    color: #fff;
    font-size: 1.9em;
    }
+
 
    .page-header {
    border: none;
@@ -982,14 +1160,9 @@
 
    hr {
    height: 1px;
-   border-top: 1px solid #ccc;
+   border-top: 1px solid #ffffff;
    margin: 1em 0;
-   margin-left: 375px;
-   margin-right: 375px;
-   }
-   strong
-   {
-   padding-left: 15px;
-   color: #f4f4f4;
+   margin-left: 475px;
+   margin-right: 475px;
    }
 </style>

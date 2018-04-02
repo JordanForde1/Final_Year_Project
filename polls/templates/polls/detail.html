@@ -28,8 +28,9 @@
 
     <!-- if there are no questions -->
    {% if error_message %}
-   <p><strong>{{ error_message }}</strong></p>
+   <p><h3>{{ error_message }}</h3></p>
    {% endif %}
+
     <!-- The form to be filled out anonymously by the users -->
    <form action="{% url 'polls:vote' question_id=object.id %}" method="post" name="frm" onsubmit="validateForm()" id="form">
       <div class="funkyradio">
@@ -37,13 +38,11 @@
          <!-- protection against Cross Site Request Forgeries -->
          {% csrf_token %}
 
-         <!-- flex box is being used to format the radio buttons -->
-         <div class="flex-container">
-
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Vote:</strong><br />
+            <h3 class="w3-animate-opacity">Vote:</h3>
+            <!--get all data and order by the id -->
             {% for choice in object.choice_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
             </div>
@@ -51,9 +50,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Gender:</strong><br />
+            <h3 class="w3-animate-opacity">Gender:</h3>
+            <!--get all data and order by the id -->
             {% for gender in object.gender_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="gender" id="gender{{ forloop.counter }}" value="{{ gender.id }}" />
                <label for="gender{{ forloop.counter }}">{{ gender.gender_text }}</label><br />
             </div>
@@ -61,9 +61,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Age:</strong><br />
+            <h3 class="w3-animate-opacity">Age:</h3>
+            <!--get all data and order by the id -->
             {% for age in object.age_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="age" id="age{{ forloop.counter }}" value="{{ age.id }}" />
                <label for="age{{ forloop.counter }}">{{ age.age_text }} </label><br />
             </div>
@@ -71,9 +72,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Education: (Highest Achieved)</strong><br />
+            <h3 class="w3-animate-opacity">Education: (Highest Achieved)</h3>
+            <!--get all data and order by the id -->
             {% for education in object.education_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="education" id="education{{ forloop.counter }}" value="{{ education.id }}" />
                <label for="education{{ forloop.counter }}">{{ education.education_text }}</label><br />
             </div>
@@ -81,9 +83,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Religion:</strong><br />
+            <h3 class="w3-animate-opacity">Religion:</h3>
+            <!--get all data and order by the id -->
             {% for religion in object.religion_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="religion" id="religion{{ forloop.counter }}" value="{{ religion.id }}" />
                <label for="religion{{ forloop.counter }}">{{ religion.religion_text }}</label><br />
             </div>
@@ -91,9 +94,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Ethnicity:</strong><br />
+            <h3 class="w3-animate-opacity">Ethnicity:</h3>
+            <!--get all data and order by the id -->
             {% for ethnicity in object.ethnicity_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="ethnicity" id="ethnicity{{ forloop.counter }}" value="{{ ethnicity.id }}" />
                <label for="ethnicity{{ forloop.counter }}">{{ ethnicity.ethnicity_text }}</label><br />
             </div>
@@ -101,9 +105,10 @@
             <br />
 
             <!-- Display the radio buttons to let users vote -->
-            <strong class="w3-animate-opacity">Income:</strong><br />
+            <h3 class="w3-animate-opacity">Income:</h3>
+            <!--get all data and order by the id -->
             {% for income in object.income_set.all|dictsortreversed:"id" %}
-            <div class="funkyradio-success w3-animate-opacity" style="width: 250px">
+            <div class="funkyradio-primary w3-animate-opacity" style="width: 250px">
                <input type="radio" name="income" id="income{{ forloop.counter }}" value="{{ income.id }}" />
                <label for="income{{ forloop.counter }}">{{ income.income_text }}</label><br />
             </div>
@@ -111,8 +116,10 @@
             <br />
 
             <!-- Display the drop down list to let users pick where they are form -->
-            <strong class="w3-animate-opacity">Constituency:</strong>
+            <h3 class="w3-animate-opacity">Constituency:</h3>
+            <br />
             <select id="constituency" name="constituency" class="w3-animate-opacity">
+                <!--get all data and order by the id -->
                {% for constituency in object.constituency_set.all|dictsort:"id" %}
                <option name="constituency" id="constituency{{ forloop.counter }}" value="{{constituency.id}}">{{constituency.constituency_text}}</option>
                {% endfor %}
@@ -125,9 +132,9 @@
             <br />
 
             <!--Submit button -->
-            <input type="submit" value="Submit" id="button1">
+            <!--<input type="submit" value="Submit" id="button1">-->
+            <button type="submit" value="Submit" id="button1">Submit</button>
          </div>
-      </div>
    </form>
     <!-- code to display submit button until recaptcha has been clicked -->
    <!--<script>
@@ -199,6 +206,8 @@
           }
       }
    </script>
+<br />
+<br />
 </body>
 <style>
    @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
@@ -248,17 +257,17 @@
    }
 
    .funkyradio input[type="radio"]:hover:not(:checked) ~ label{
-   color: #5cb85c;
+   color: #337ab7;
    }
 
    .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before{
    content: '\2714';
    text-indent: .9em;
-   color: #5cb85c;
+   color: #337ab7;
    }
 
    .funkyradio input[type="radio"]:checked ~ label{
-   color: #5cb85c;
+   color: #337ab7;
    }
 
    .funkyradio input[type="radio"]:checked ~ label:before{
@@ -272,10 +281,10 @@
    box-shadow: 0 0 0 3px #999;
    }
 
-   .funkyradio-success input[type="radio"]:checked ~ label:before{
-   color: #fff;
-   background-color: #5cb85c;
-   }
+.funkyradio-primary input[type="radio"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
 
    * {
    box-sizing: border-box;
@@ -286,8 +295,8 @@
 
    html, body {
    width: 100%;
-   height: 100%;
-   background-color: #3a7eb1;
+   min-height: 100%;
+   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
    position: relative;
    }
 
@@ -315,6 +324,12 @@
    font-size: 1.9em;
    }
 
+   h3{
+   font-family: 'Open Sans', serif;
+   color: #fff;
+    font-size: 1.9em;
+   }
+
    .page-header {
    border: none;
    text-align: center;
@@ -330,13 +345,67 @@
 
    hr {
    height: 1px;
-   border-top: 1px solid #ccc;
+   border-top: 1px solid #ffffff;
    margin: 1em 0;
    margin-left: 25px;
    margin-right: 25px;
    }
-
-   strong{
-   color: #f4f4f4;
+   #form{
+       padding-left: 950px;
    }
+    select#constituency, select#constituency {
+   -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 20px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   overflow: hidden;
+   padding: 5px 10px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
+}
+        #button1{
+  background-color: #eeeeee;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: linear-gradient(top, #eeeeee, #cccccc);
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  border-radius: 3px;
+  color: #333;
+  font: bold 15px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  padding: 8px 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  width: 305px;
+  height: 50px;
+        }
+ #button1:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
+    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: linear-gradient(top, #dddddd, #bbbbbb);
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd; }
+  #button1:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee; }
 </style>

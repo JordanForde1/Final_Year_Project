@@ -16,21 +16,22 @@
             <div class="page-header">
                <h1>Data visualisation of Referenda held in Ireland and Polling System for upcoming Referenda</h1>
                <hr>
-
                <!-- Text explaining the project -->
                <h2>
-                  This web application is a polling system used to gather in formation around the country of Ireland
-                  as to allow parties that are taking part in these referendum to see the high and low concerntations
-                  of yes and no votes along with a plethora of other information.
-                  <hr>
-                  Please click the link be to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
-               </h2>
+                  This web application is a polling system used to gather information around the country of Ireland
+                  as to allow campaign parties that are taking part in these referenda to see the high and low concerntations
+                  of yes and no votes along with a plethora of other information about the public. The public can also take part
+                  by filling out the poll and seeing the results.
+              <hr>
+                  Please click the link to take part in the upcoming repeal the 8th referendum poll and share with your family and friends with the links below!
+              </h2>
             </div>
          </div>
       </div>
-
+<hr>
+<br />
       <!-- Showing the latest question -->
-      <div id="poll">
+      <div class="w3-container w3-center w3-animate-opacity" id="poll">
          {% if latest_question_list %}
          <ul>
 
@@ -74,7 +75,8 @@
    @import 'https://fonts.googleapis.com/css?family=Open+Sans:300';
    #title{
    text-align: center;
-   padding-top: 200px;
+   padding-top: 180px;
+
    }
    #share{
    padding-left: 10px;
@@ -88,8 +90,8 @@
    }
    html, body {
    width: 100%;
-   height: 100%;
-   background-color: #3a7eb1;
+   min-height: 100%;
+   background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
    position: relative;
    }
    h1, h2 {
@@ -101,11 +103,12 @@
    font-weight: 400;
    }
    ul {
-   min-width: 40px;
+   width: 420px;
    height: 40px;
-   position: absolute;
-   top: 72%;
+   position: relative;
+   top: 75%;
    left: 50%;
+   right: 50%;
    transform: translate(-50%, -50%);
    transfrom-origin: 50% 50%;
    -webkit-transform: translate(-50%, -50%);
@@ -120,12 +123,12 @@
    margin: 0 5px;
    float: left;
    line-height: 40px;
-   color: #3a7eb1;
+   color: #EE82EE;
    overflow: hidden;
    cursor: pointer;
    }
    ul li:hover {
-   color: #3a7eb1;
+   color: #EE82EE;
    }
    ul li i {
    font-size: 25px;
@@ -141,14 +144,14 @@
    font-size: 40px;
    }
    ul li:last-of-type:hover i {
-   color: #3a7eb1;
+   color: #EE82EE;
    }
    ul li a {
    text-decoration: none;
-   color: #3a7eb1;
+   color: #EE82EE;
    }
    ul li a:hover {
-   color: #3a7eb1;
+   color: #EE82EE;
    }
    h1 {
    font-family: 'Open Sans', serif;
@@ -174,7 +177,7 @@
    }
    hr {
    height: 1px;
-   border-top: 1px solid #ccc;
+   border-top: 1px solid #fff8f8 ;
    margin: 1em 0;
    margin-left: 25px;
    margin-right: 25px;
