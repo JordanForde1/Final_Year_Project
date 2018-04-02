@@ -45,11 +45,9 @@
       <file leaf-file-name="results.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/polls/templates/polls/results.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="832" column="101" lean-forward="false" selection-start-line="832" selection-start-column="101" selection-end-line="832" selection-end-column="101" />
+            <state relative-caret-position="719">
+              <caret line="1317" column="18" lean-forward="false" selection-start-line="1317" selection-start-column="18" selection-end-line="1317" selection-end-column="18" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#!!top" expanded="true" />
@@ -62,6 +60,8 @@
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#5;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#6;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#6;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#7;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#7;n#div#0;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#body#0;n#!!top" expanded="true" />
@@ -69,7 +69,8 @@
                 <element signature="n#style#0;n#div#5;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#6;n#body#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#7;n#body#0;n#!!top" expanded="true" />
-                <element signature="e#33612#33618#0#HTML" expanded="true" />
+                <element signature="e#39711#39717#0#HTML" expanded="true" />
+                <element signature="e#39841#39847#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -559,11 +560,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/polls/templates/polls/results.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="832" column="101" lean-forward="false" selection-start-line="832" selection-start-column="101" selection-end-line="832" selection-end-column="101" />
+        <state relative-caret-position="719">
+          <caret line="1317" column="18" lean-forward="false" selection-start-line="1317" selection-start-column="18" selection-end-line="1317" selection-end-column="18" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#!!top" expanded="true" />
@@ -576,6 +575,8 @@
             <element signature="n#style#0;n#div#0;n#div#0;n#div#5;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#6;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#6;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#7;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#7;n#div#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#body#0;n#!!top" expanded="true" />
@@ -583,7 +584,8 @@
             <element signature="n#style#0;n#div#5;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#6;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#7;n#body#0;n#!!top" expanded="true" />
-            <element signature="e#33612#33618#0#HTML" expanded="true" />
+            <element signature="e#39711#39717#0#HTML" expanded="true" />
+            <element signature="e#39841#39847#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
