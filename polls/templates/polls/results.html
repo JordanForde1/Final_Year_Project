@@ -30,7 +30,7 @@
    <div class="row">
       <div class="page-header">
          <div class="w3-container w3-center w3-animate-opacity">
-            <h1>{{ object.question_text }}</h1>
+            <h1>{{ object.question_text }} RESULTS</h1>
          </div>
       </div>
    </div>
@@ -40,7 +40,7 @@
 <body>
    <!-- Showing data gathered by the poll as progress bars -->
    <div class="w3-animate-opacity">
-      <h2>Progress bars of data gathered form the poll!</h2>
+      <h2>Progress bars of data gathered form the poll</h2>
       <hr />
       <div class="container" id="show">
          <select title="display" onChange="check(this)">
@@ -55,8 +55,7 @@
       </div>
 
       <div class="container" id="YesNoDiv" style="display: block;">
-         <h3> Yes and no votes!</h3>
-         <br />
+         <h3> Yes and no votes</h3>
          <!--for loop to loop through database and order the output by id -->
          {% for choice in questions.choice_set.all|dictsortreversed:"id" %}
          <div class="progress">
@@ -71,7 +70,7 @@
    </div>
 
    <div class="container" id="MaleFemaleDiv" style="display: none;">
-      <h3> Male and Female voters!</h3>
+      <h3> Male and Female voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for gender in questions.gender_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -84,7 +83,7 @@
    </div>
 
    <div class="container" id="AgesDiv" style="display: none;">
-      <h3> Ages of voters!</h3>
+      <h3> Ages of voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for age in questions.age_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -97,7 +96,7 @@
    </div>
 
    <div class="container" id="EducationDiv" style="display: none;">
-      <h3> Education of voters!</h3>
+      <h3> Education of voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for education in questions.education_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -110,7 +109,7 @@
    </div>
 
    <div class="container" id="ReligionDiv" style="display: none;">
-      <h3> Religion of voters!</h3>
+      <h3> Religion of voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for religion in questions.religion_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -123,7 +122,7 @@
    </div>
 
    <div class="container" id="EthnicityDiv" style="display: none;">
-      <h3> Ethnicity of voters!</h3>
+      <h3> Ethnicity of voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for ethnicity in questions.ethnicity_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -136,7 +135,7 @@
    </div>
 
    <div class="container" id="IncomeDiv" style="display: none;">
-      <h3> Income of voters!</h3>
+      <h3> Income of voters</h3>
       <!--for loop to loop through database and order the output by id -->
       {% for income in questions.income_set.all|dictsortreversed:"id" %}
       <div class="progress">
@@ -292,7 +291,7 @@
       }
    </script>
    <!-- Showing the data gathered by the poll in doughnut charts and bar charts -->
-   <h2>Charts of data gathered form the poll!</h2>
+   <h2>Charts of data gathered form the poll</h2>
    <hr />
 
    <div class="container" id="show">
@@ -308,7 +307,7 @@
    </div>
 
    <div class="container" id="YesNoDivChart" style="display: block;">
-      <h3> Yes or no vote pie chart!</h3>
+      <h3> Yes or no vote pie chart</h3>
       <div class="row">
          <canvas id="choiceChart" width="100" height="50"></canvas>
       </div>
@@ -316,7 +315,7 @@
    </div>
 
    <div class="container" id="MaleFemaleDivChart" style="display: none;">
-      <h3> Male and Female pie chart!</h3>
+      <h3> Male and Female pie chart</h3>
       <div class="row">
          <canvas id="genderChart" width="100" height="50"></canvas>
       </div>
@@ -324,7 +323,7 @@
    </div>
 
    <div class="container" id="AgesDivChart" style="display: none;">
-      <h3> Age bar chart!</h3>
+      <h3> Age bar chart</h3>
       <div class="row">
          <canvas id="ageChart" width="100" height="50"></canvas>
       </div>
@@ -332,7 +331,7 @@
    </div>
 
    <div class="container" id="EducationDivChart" style="display: none;">
-      <h3> Education bar chart!</h3>
+      <h3> Education bar chart</h3>
       <div class="row">
          <canvas id="educationChart" width="100" height="50"></canvas>
       </div>
@@ -340,7 +339,7 @@
    </div>
 
    <div class="container" id="ReligionDivChart" style="display: none;">
-      <h3> Religion bar chart!</h3>
+      <h3> Religion bar chart</h3>
       <div class="row">
          <canvas id="religionChart" width="100" height="50"></canvas>
       </div>
@@ -348,7 +347,7 @@
    </div>
 
    <div class="container" id="EthnicityDivChart" style="display: none;">
-      <h3> Ethnicity bar chart!</h3>
+      <h3> Ethnicity bar chart</h3>
       <div class="row">
          <canvas id="ethnicityChart" width="100" height="50"></canvas>
       </div>
@@ -356,7 +355,7 @@
    </div>
 
    <div class="container" id="IncomeDivChart" style="display: none;">
-      <h3> Income bar chart!</h3>
+      <h3> Income bar chart</h3>
       <div class="row">
          <canvas id="incomeChart" width="100" height="50"></canvas>
       </div>
@@ -966,7 +965,7 @@
    <br /><br />
 
    <!-- Showing the data gathered by the poll in a heatmap -->
-   <h2>Map of data gathered form the poll and gay marriage referendum!</h2>
+   <h2>Map of data gathered form the poll and gay marriage referendum</h2>
    <hr />
 
    <!-- Buttons to switch heatmaps from our poll and the gay marriage referendum poll -->
