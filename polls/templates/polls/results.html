@@ -40,7 +40,7 @@
 <body>
    <!-- Showing data gathered by the poll as progress bars -->
    <div class="w3-animate-opacity">
-      <h2>Progress bars of data gathered form the poll</h2>
+      <h2 style="font-weight: bold">Progress bars of data gathered form the poll</h2>
       <hr />
       <div class="container" id="show">
          <select title="display" onChange="check(this)">
@@ -291,7 +291,7 @@
       }
    </script>
    <!-- Showing the data gathered by the poll in doughnut charts and bar charts -->
-   <h2>Charts of data gathered form the poll</h2>
+   <h2 style="font-weight: bold">Charts of data gathered form the poll</h2>
    <hr />
 
    <div class="container" id="show">
@@ -307,7 +307,7 @@
    </div>
 
    <div class="container" id="YesNoDivChart" style="display: block;">
-      <h3> Yes or no vote pie chart</h3>
+      <h3> Yes or no vote doughnut chart</h3>
       <div class="row">
          <canvas id="choiceChart" width="100" height="50"></canvas>
       </div>
@@ -315,7 +315,7 @@
    </div>
 
    <div class="container" id="MaleFemaleDivChart" style="display: none;">
-      <h3> Male and Female pie chart</h3>
+      <h3> Male and Female doughnut chart</h3>
       <div class="row">
          <canvas id="genderChart" width="100" height="50"></canvas>
       </div>
@@ -965,7 +965,7 @@
    <br /><br />
 
    <!-- Showing the data gathered by the poll in a heatmap -->
-   <h2>Map of data gathered form the poll and gay marriage referendum</h2>
+   <h2 style="font-weight: bold">Map of data gathered form the poll and gay marriage referendum</h2>
    <hr />
 
    <!-- Buttons to switch heatmaps from our poll and the gay marriage referendum poll -->
@@ -1126,11 +1126,10 @@
          50017
          ];
 
-         //Getting the number of people who have voted from each constituency
-         var dataConstituency = [];
-         {% for constituency in questions.constituency_set.all|dictsort:"id" %}
-             dataConstituency.push({{ constituency.intensity }});
-         {% endfor %}
+     var dataConstituency = [];
+     {% for constituency in questions.constituency_set.all|dictsort:"id" %}
+         dataConstituency.push({{ constituency.intensity }});
+     {% endfor %}
 
          //Loop around number of constituencys to add data from our poll
          for (i =0; i < 40; i++){
@@ -1196,6 +1195,7 @@
 
          //Having our poll be displayed first
          heatmapLayer.setData(centroids);
+         console.log(centroids);
 
          // Function called when a button is clicked
          function checkmap(id)

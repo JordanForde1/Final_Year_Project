@@ -52,7 +52,6 @@ def vote(request, question_id):
         })
     else:
             #Increment selected fields
-            selected_choice.votes += 1
             selected_gender.num += 1
             selected_age.option += 1
             selected_education.number += 1
@@ -60,6 +59,7 @@ def vote(request, question_id):
             selected_ethnicity.racenum += 1
             selected_income.amount += 1
             selected_constituency.intensity += 1
+            selected_choice.votes += 1
 
             #Save the choice
             selected_choice.save()

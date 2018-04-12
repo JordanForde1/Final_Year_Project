@@ -22,6 +22,14 @@ class Questions(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
+#what Constituency the voter is in
+class Constituency (models.Model):
+    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    constituency_text = models.CharField(max_length=250)
+    intensity = models.IntegerField(default=0)
+    def __str__(self):
+            return self.constituency_text
+
 #The choices
 class Choice(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE)
@@ -77,11 +85,3 @@ class Income (models.Model):
     amount = models.IntegerField(default=0)
     def __str__(self):
             return self.income_text
-
-#what Constituency the voter is in
-class Constituency (models.Model):
-    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
-    constituency_text = models.CharField(max_length=250)
-    intensity = models.IntegerField(default=0)
-    def __str__(self):
-            return self.constituency_text

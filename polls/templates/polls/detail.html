@@ -124,7 +124,8 @@
          <select id="constituency" name="constituency" class="w3-animate-opacity">
             <!--get all data and order by the id -->
             {% for constituency in object.constituency_set.all|dictsort:"id" %}
-            <option name="constituency" id="constituency{{ forloop.counter }}" value="{{constituency.id}}">{{constituency.constituency_text}}</option>
+            <option name="constituency" id="constituency{{ forloop.counter }}"
+            value="{{constituency.id}}">{{constituency.constituency_text}}</option>
             {% endfor %}
          </select>
          <br />
