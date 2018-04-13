@@ -19,17 +19,14 @@
     <favorites_list name="mysite" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="results.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/polls/templates/polls/results.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="977" column="58" lean-forward="false" selection-start-line="977" selection-start-column="58" selection-end-line="977" selection-end-column="58" />
+            <state relative-caret-position="183">
+              <caret line="967" column="86" lean-forward="false" selection-start-line="967" selection-start-column="86" selection-end-line="967" selection-end-column="86" />
               <folding>
-                <element signature="e#40208#40214#0#HTML" expanded="true" />
-                <element signature="e#40353#40359#0#HTML" expanded="true" />
-                <element signature="e#40617#40623#0#HTML" expanded="true" />
-                <element signature="e#40752#40758#0#HTML" expanded="true" />
+                <element signature="e#40610#40616#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,7 +126,7 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="952" />
     <option name="width" value="976" />
     <option name="height" value="1088" />
@@ -288,11 +285,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="952" y="0" width="976" height="1088" extended-state="0" />
+    <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32869378" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@mysite" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30194804" sideWeight="0.48335123" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@mysite" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3019272" sideWeight="0.48335123" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3169165" sideWeight="0.51664877" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32359308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33832976" sideWeight="0.4888889" order="3" side_tool="false" content_ui="tabs" />
@@ -594,13 +591,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/polls/templates/polls/results.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="977" column="58" lean-forward="false" selection-start-line="977" selection-start-column="58" selection-end-line="977" selection-end-column="58" />
+        <state relative-caret-position="183">
+          <caret line="967" column="86" lean-forward="false" selection-start-line="967" selection-start-column="86" selection-end-line="967" selection-end-column="86" />
           <folding>
-            <element signature="e#40208#40214#0#HTML" expanded="true" />
-            <element signature="e#40353#40359#0#HTML" expanded="true" />
-            <element signature="e#40617#40623#0#HTML" expanded="true" />
-            <element signature="e#40752#40758#0#HTML" expanded="true" />
+            <element signature="e#40610#40616#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
