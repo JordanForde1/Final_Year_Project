@@ -971,9 +971,11 @@
    <!-- Buttons to switch heatmaps from our poll and the gay marriage referendum poll -->
    <form>
       <div class="w3-container w3-center" id="maptext">
-         <input type="radio" name="poll" value="Repeal" id="Repeal" class="big" onclick="checkmap(this.id)" checked> Repeal The 8th Poll&nbsp;
-         <input type="radio" name="poll" value="Gay" id="Gay" class="big" onclick="checkmap(this.id)"> Gay Marriage Referendum&nbsp;
-         <input type="radio" name="poll" value="Both" id="Both" class="big" onclick="checkmap(this.id)"> Overlay both maps&nbsp;
+         <input type="radio" name="poll" value="Repeal" id="Repeal" class="big" onclick="checkmap(this.id)" checked> Repeal The 8th Poll Total Votes&nbsp;
+         <input type="radio" name="poll" value="Gay" id="Gay" class="big" onclick="checkmap(this.id)"> Gay Marriage Referendum Total Votes&nbsp;
+         <input type="radio" name="poll" value="Both" id="Both" class="big" onclick="checkmap(this.id)"> Overlay both maps<br>
+         <input type="radio" name="poll" value="Yes" id="Yes" class="big" onclick="checkmap(this.id)"> Gay Marriage Yes Votes Maps&nbsp;
+         <input type="radio" name="poll" value="No" id="No" class="big" onclick="checkmap(this.id)"> Gay Marriage Yes Votes Maps&nbsp;
       </div>
    </form>
    <br />
@@ -993,6 +995,8 @@
          //Arrays of points
          var points = [];
          var marriagePoints = [];
+         var gayyespoints = [];
+         var gaynopoints = [];
 
          //latitude of the center of the polygon for each constituency
          var lat = [
@@ -1126,6 +1130,92 @@
          50017
          ];
 
+     var gayMarriageYesVotes=[
+        38166,
+        28494,
+        28137,
+        30383,
+        28479,
+        22388,
+        38591,
+        20627,
+        16040,
+        15907,
+        23861,
+        29984,
+        34494,
+        25382,
+        26222,
+        21395,
+        49109,
+        34988,
+        25655,
+        32010,
+        29690,
+        38284,
+        25389,
+        32037,
+        19678,
+        18357,
+        33960,
+        23199,
+        35685,
+        20322,
+        24789,
+        25445,
+        38758,
+        28801,
+        24525,
+        21374,
+        17615,
+        19043,
+        22077,
+        19203
+     ];
+
+     var gayMarriageNoVotes=[
+        29697,
+        27763,
+        20154,
+        18845,
+        16182,
+        16298,
+        20072,
+        16225,
+        14492,
+        15874,
+        9108,
+        12291,
+        13009,
+        11431,
+        13090,
+        8925,
+        21150,
+        13418,
+        8594,
+        12901,
+        12350,
+        15168,
+        22265,
+        20053,
+        15808,
+        14831,
+        14782,
+        11861,
+        27135,
+        16797,
+        13855,
+        22025,
+        22313,
+        26566,
+        14025,
+        14189,
+        18644,
+        16502,
+        18298,
+        15012
+     ];
+
      var dataConstituency = [];
      {% for constituency in questions.constituency_set.all|dictsort:"id" %}
          dataConstituency.push({{ constituency.intensity }});
@@ -1153,6 +1243,26 @@
              }
          }
 
+         for (i =0; i < 40; i++){
+             if(gayMarriageYesVotes[i] > 0){
+                 gayyespoints.push({
+                 "lat": long[i],
+                 "lng": lat[i],
+                 "count": gayMarriageYesVotes[i]
+             });
+             }
+         }
+
+         for (i =0; i < 40; i++){
+             if(gayMarriageNoVotes[i] > 0){
+                 gaynopoints.push({
+                 "lat": long[i],
+                 "lng": lat[i],
+                 "count": gayMarriageNoVotes[i]
+             });
+             }
+         }
+
          //Adding the data to the centroids
          var centroids = {
              length: 40,
@@ -1163,6 +1273,18 @@
          var marriageCentroids = {
              length: 40,
              data: marriagePoints
+         };
+
+
+         var yesCentroids = {
+             length: 40,
+             data: gayyespoints
+         };
+
+
+         var noCentroids = {
+             length: 40,
+             data: gaynopoints
          };
 
          //Base layer of the map
@@ -1187,11 +1309,13 @@
          };
 
          //Heatmap layer
+         var noheatmapLayer = new HeatmapOverlay(cfg);
+         var yesheatmapLayer = new HeatmapOverlay(cfg);
          var marriageheatmapLayer = new HeatmapOverlay(cfg);
          var heatmapLayer = new HeatmapOverlay(cfg);
 
          //Setting the map
-         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,marriageheatmapLayer]});
+         var map = new L.Map('mapid', {center: new L.LatLng(53.5424, -7.6921), zoom: 4, layers: [baseLayer,heatmapLayer,marriageheatmapLayer,yesheatmapLayer,noheatmapLayer]});
 
          //Having our poll be displayed first
          heatmapLayer.setData(centroids);
@@ -1205,7 +1329,10 @@
                      // If it is selected
                      if (document.getElementById(id).checked = true) {
                          //Remove any other layers and add our poll
-                     	 marriageheatmapLayer.setData({data:[]});
+                         noheatmapLayer.setData({data:[]});
+                         yesheatmapLayer.setData({data:[]});
+                         marriageheatmapLayer.setData({data:[]});
+
                          heatmapLayer.setData(centroids);
                      }
                  }
@@ -1216,7 +1343,10 @@
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
                  	     //Remove any other layers and add gay marriage referendum
+                         noheatmapLayer.setData({data:[]});
+                         yesheatmapLayer.setData({data:[]});
                          heatmapLayer.setData({data:[]});
+
                          marriageheatmapLayer.setData(marriageCentroids);
                  	}
                  }
@@ -1226,9 +1356,38 @@
                  {
                  	// If it is selected
                  	if(document.getElementById(id).checked = true) {
+                        noheatmapLayer.setData({data:[]});
+                        yesheatmapLayer.setData({data:[]});
+
                  	    //add both layers
                         marriageheatmapLayer.setData(marriageCentroids);
                  	    heatmapLayer.setData(centroids);
+                 	}
+                 }
+
+                // If it the Yes button
+                 else if(id === "Yes")
+                 {
+                 	// If it is selected
+                 	if(document.getElementById(id).checked = true) {
+                 	    marriageheatmapLayer.setData({data:[]});
+                 	    heatmapLayer.setData({data:[]});
+                 	    noheatmapLayer.setData({data:[]});
+
+                 	    yesheatmapLayer.setData(yesCentroids);
+                 	}
+                 }
+
+                // If it the No button
+                 else if(id === "No")
+                 {
+                 	// If it is selected
+                 	if(document.getElementById(id).checked = true) {
+                 	    marriageheatmapLayer.setData({data:[]});
+                 	    heatmapLayer.setData({data:[]});
+                 	    yesheatmapLayer.setData({data:[]});
+
+                 	    noheatmapLayer.setData(noCentroids);
                  	}
                  }
          }
